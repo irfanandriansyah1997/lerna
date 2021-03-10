@@ -11,6 +11,10 @@
       "registry": "https://npm.pkg.github.com",
       "allowBranch": "main",
       "npmClient": "npm"
+    },
+    "version": {
+        "allowBranch": "main",
+        "ignoreChanges": ["**/*.md"]
     }
   }
 }
