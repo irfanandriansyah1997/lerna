@@ -9,11 +9,17 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "lerna exec yarn start",
+    "test": "lerna run test --parallel",
+    "boot": "yarn global add lerna && lerna bootstrap",
+    "release": "lerna publish --no-verify-access"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/irfanandriansyah1997/lerna.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "workspaces": ["_base/*"],
   "author": "Irfan Andriansyah",

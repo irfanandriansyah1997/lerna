@@ -1,14 +1,8 @@
 {
-  "name": "@99/helper",
-  "version": "0.0.1",
+  "name": "@irfanandriansyah1997/helper",
+  "version": "0.2.14",
   "description": "99 basic helper",
-  "keywords": [
-    "basic",
-    "helper",
-    "for",
-    "99",
-    "apps"
-  ],
+  "keywords": [],
   "author": "irfan andriansyah <irfanandriansyah10@gmail.com>",
   "homepage": "https://github.com/irfanandriansyah1997/lerna/tree/main/_base/helper#readme",
   "license": "ISC",
@@ -20,14 +14,22 @@
   "files": [
     "lib"
   ],
+  "scripts": {
+    "start": "echo \"Start 99 Helper\"",
+    "test": "echo \"Error: run tests from root\""
+  },
+  "bugs": {
+    "url": "https://github.com/irfanandriansyah1997/lerna/issues"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/irfanandriansyah1997/lerna.git"
   },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
-  "bugs": {
-    "url": "https://github.com/irfanandriansyah1997/lerna/issues"
-  }
+  "gitHead": "ae0874089b5e92b98538d6ca7c4153eef242e8d0"
 }
