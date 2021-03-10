@@ -3,7 +3,7 @@ name: Release V2
 on:
     push:
         branches:
-            - master
+            - main
 
 jobs:
     publish-gpr:
