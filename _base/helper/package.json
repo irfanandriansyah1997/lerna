@@ -30,6 +30,5 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/irfanandriansyah1997/lerna.git"
-  },
-  "gitHead": "ae0874089b5e92b98538d6ca7c4153eef242e8d0"
+  }
 }
