@@ -3,5 +3,5 @@
 module.exports = helper;
 
 function helper() {
-    console.debug('sample helper v4')
+    console.debug('sample helper last version')
 }
