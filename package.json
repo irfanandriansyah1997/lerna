@@ -2,7 +2,8 @@
   "name": "lerna",
   "private": true,
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "typescript": "^4.2.3"
   },
   "description": "learn multiple package using lerna",
   "version": "0.0.0",
@@ -14,6 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/irfanandriansyah1997/lerna.git"
   },
+  "workspaces": ["_base/*"],
   "author": "Irfan Andriansyah",
   "license": "ISC",
   "bugs": {

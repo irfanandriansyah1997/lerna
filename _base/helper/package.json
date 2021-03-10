@@ -1,0 +1,33 @@
+{
+  "name": "@99/helper",
+  "version": "0.0.1",
+  "description": "99 basic helper",
+  "keywords": [
+    "basic",
+    "helper",
+    "for",
+    "99",
+    "apps"
+  ],
+  "author": "irfan andriansyah <irfanandriansyah10@gmail.com>",
+  "homepage": "https://github.com/irfanandriansyah1997/lerna/tree/main/_base/helper#readme",
+  "license": "ISC",
+  "main": "lib/helper.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irfanandriansyah1997/lerna.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/irfanandriansyah1997/lerna/issues"
+  }
+}
