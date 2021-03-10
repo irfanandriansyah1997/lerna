@@ -1,21 +1,19 @@
-
-
 on:
-  push:
-    branches:
-    - main
+    push:
+        branches:
+            - main
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12
-    - run: yarn
-    - uses: fregante/setup-git-user@v1
-    - uses: plutotcool/release@v1.0.0
-      with:
-        github_token:  ${{ secrets.TOKEN_BUILD }}
-        npm_token: ${{ secrets.NPM_TOKEN }}
+    release:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+            - run: yarn
+            - uses: fregante/setup-git-user@v1
+            - uses: plutotcool/release@v1.0.0
+              with:
+                  github_token: ${{ secrets.TOKEN_BUILD }}
+                  npm_token: ${{ secrets.NPM_TOKEN }}

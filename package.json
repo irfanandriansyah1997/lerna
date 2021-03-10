@@ -11,8 +11,10 @@
   "scripts": {
     "start": "lerna exec yarn start",
     "test": "lerna run test --parallel",
-    "boot": "yarn global add lerna && lerna bootstrap",
-    "release": "lerna publish --no-verify-access"
+    "bootstrap": "yarn global add lerna && lerna bootstrap",
+    "release": "lerna publish --no-verify-access",
+    "publish:ci": "lerna publish from-package --yes",
+    "version:ci": "lerna version --yes --conventional-commits --create-release github --message 'chore(release): publish'"
   },
   "repository": {
     "type": "git",
