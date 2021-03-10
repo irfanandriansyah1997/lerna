@@ -1,0 +1,23 @@
+{
+  "name": "lerna",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "description": "learn multiple package using lerna",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irfanandriansyah1997/lerna.git"
+  },
+  "author": "Irfan Andriansyah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/irfanandriansyah1997/lerna/issues"
+  },
+  "homepage": "https://github.com/irfanandriansyah1997/lerna#readme"
+}
