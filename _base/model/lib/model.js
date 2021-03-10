@@ -3,5 +3,5 @@
 module.exports = model;
 
 function model() {
-    // TODO
+    console.debug("update model version")
 }
