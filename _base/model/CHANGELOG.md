@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/model@0.2.0...@irfanandriansyah1997/model@0.3.0) (2021-03-10)
+
+
+### Features
+
+* **model:** update code ([1a6b70f](https://github.com/irfanandriansyah1997/lerna/commit/1a6b70fa6d450fec18a7f875d7c70f8ed0a2ce42))
+
+
+
+
+
 # 0.2.0 (2021-03-10)
 
 
