@@ -1,6 +1,6 @@
 {
   "name": "@irfanandriansyah1997/model",
-  "version": "0.5.2",
+  "version": "0.5.3-alpha.0",
   "description": "sample model",
   "author": "irfan andriansyah <irfanandriansyah10@gmail.com>",
   "homepage": "https://github.com/irfanandriansyah1997/lerna/tree/main/_base/model#readme",
@@ -22,7 +22,7 @@
     "url": "https://github.com/irfanandriansyah1997/lerna/issues"
   },
   "dependencies": {
-    "@irfanandriansyah1997/helper": "^0.11.2",
+    "@irfanandriansyah1997/helper": "^0.11.3-alpha.0",
     "react": "^17.0.1"
   },
   "devDependencies": {
