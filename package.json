@@ -7,6 +7,7 @@
     "@commitlint/config-conventional": "^12.0.1",
     "commitizen": "^4.2.3",
     "cz-conventional-changelog": "^3.3.0",
+    "del-cli": "^3.0.1",
     "eslint": "^7.21.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.1.0",
@@ -35,6 +36,8 @@
   "scripts": {
     "start": "lerna exec yarn start",
     "test": "lerna run test --parallel",
+    "compile-helper": "lerna run compile --parallel --scope=\"@irfanandriansyah1997/helper\"",
+    "compile-model": "lerna run compile --parallel --scope=\"@irfanandriansyah1997/model\"",
     "install-depedency": "lerna exec yarn install",
     "postinstall-depedency": "lerna link",
     "bootstrap": "lerna bootstrap",

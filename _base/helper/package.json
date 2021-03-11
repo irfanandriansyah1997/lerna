@@ -6,20 +6,11 @@
   "author": "irfan andriansyah <irfanandriansyah10@gmail.com>",
   "homepage": "https://github.com/irfanandriansyah1997/lerna/tree/main/_base/helper#readme",
   "license": "ISC",
-  "main": "lib/helper.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
   "scripts": {
     "test": "echo \"Error: run tests from root\"",
-    "build": "yarn run compile",
-    "postbuild": "mv ./build/* ./ && rm -rf build",
     "compile": "rimraf build && tsc && rollup -c etc/rollup/rollup.config.js",
-    "postcompile": "mv build/lib/* build && rm -rf build/lib"
+    "postcompile": "mv lib/src/* lib && rm -rf lib/src",
+    "prepublishOnly": "cp -r ./lib/* ."
   },
   "bugs": {
     "url": "https://github.com/irfanandriansyah1997/lerna/issues"
@@ -64,8 +55,6 @@
     "url": "git+https://github.com/irfanandriansyah1997/lerna.git"
   },
   "dependencies": {
-    "@irfanandriansyah1997/model": "^0.4.0",
-    "lodash": "^4.17.21",
     "react": "^17.0.1"
   }
 }

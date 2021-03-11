@@ -3,9 +3,9 @@ import multiInput from 'rollup-plugin-multi-input';
 import { terser } from 'rollup-plugin-terser';
 
 export default {
-  input: ['lib/**/*.ts'],
+  input: ['src/**/*.ts'],
   output: {
-    dir: 'build',
+    dir: 'lib',
     format: 'cjs'
   },
   plugins: [multiInput(), terser(), typescript()]

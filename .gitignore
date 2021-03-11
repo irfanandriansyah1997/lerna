@@ -104,7 +104,7 @@ dist
 .tern-port
 
 # Library Output
-_base/*/build
+_base/*/lib
 _base/*/*.js
 _base/*/**.js
 _base/*/*.ts
@@ -112,5 +112,5 @@ _base/*/**.ts
 _base/*/.rollup.cache
 
 # Library Resource
-!_base/*/lib/*.ts
-!_base/*/lib/**/*.ts
+!_base/*/src/*.ts
+!_base/*/src/**/*.ts

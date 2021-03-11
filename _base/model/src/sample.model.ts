@@ -1,4 +1,4 @@
-import { ItsTrue } from '@irfanandriansyah1997/helper/validation.helper';
+import { ItsTrue } from '@irfanandriansyah1997/helper/lib/validation.helper';
 
 /**
  * Generate Method

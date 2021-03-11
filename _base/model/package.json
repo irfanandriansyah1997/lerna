@@ -5,14 +5,6 @@
   "author": "irfan andriansyah <irfanandriansyah10@gmail.com>",
   "homepage": "https://github.com/irfanandriansyah1997/lerna/tree/main/_base/model#readme",
   "license": "ISC",
-  "main": "lib/model.js",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
@@ -22,10 +14,9 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from model\"",
-    "build": "yarn run compile",
-    "postbuild": "mv ./build/* ./ && rm -rf build",
     "compile": "rimraf build && tsc && rollup -c etc/rollup/rollup.config.js",
-    "postcompile": "mv build/lib/* build && rm -rf build/lib"
+    "postcompile": "mv lib/src/* lib && rm -rf lib/src",
+    "prepublishOnly": "cp -r ./lib/* ."
   },
   "bugs": {
     "url": "https://github.com/irfanandriansyah1997/lerna/issues"
