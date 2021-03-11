@@ -1,9 +1,6 @@
 name: Continuos Integration
 
-on:
-  pull_request:
-    branches-ignore:
-      - main
+on: pull_request
 
 jobs:
   do-linter:
