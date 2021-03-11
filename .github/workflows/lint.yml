@@ -4,7 +4,6 @@ on: [push, pull_request]
 
 jobs:
     do-linter:
-        name: Do Linter
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
@@ -21,5 +20,5 @@ jobs:
                   yarn global add lerna
                   yarn
 
-            - name: Do Linter
+            - name: Linter & Unit Test
               run: yarn run test
