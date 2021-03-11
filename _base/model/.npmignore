@@ -46,6 +46,7 @@ typings/
 
 # TypeScript cache
 *.tsbuildinfo
+tsconfig.json
 
 # Optional npm cache directory
 .npm
@@ -103,14 +104,13 @@ dist
 # TernJS port file
 .tern-port
 
-# Library Output
-_base/*/build
-_base/*/*.js
-_base/*/**.js
-_base/*/*.ts
-_base/*/**.ts
-_base/*/.rollup.cache
 
-# Library Resource
-!_base/*/lib/*.ts
-!_base/*/lib/**/*.ts
+.jest_coverage
+.tmp
+tmp
+etc
+src
+package.json
+yarn.lock
+tsconfig.json
+lib
