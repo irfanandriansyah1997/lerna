@@ -1,27 +1,31 @@
 name: Continuos Integration
 
-on:
-    pull_request:
-        branches-ignore:
-            - main
+on: pull_request
 
 jobs:
-    do-linter:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-              with:
-                  fetch-depth: 0
+  do-linter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: 12
-                  registry-url: 'https://npm.pkg.github.com/'
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: 'https://npm.pkg.github.com/'
 
-            - name: Install Depedency
-              run: |
-                  yarn global add lerna
-                  yarn
+      - name: Install Depedency
+        run: |
+          yarn global add lerna
+          yarn
 
-            - name: Linter & Unit Test
-              run: yarn run test
+      - name: Build Asset
+        run: |
+          yarn run compile-helper
+          yarn run compile-model
+
+      - name: Linter & Unit Test
+        run: |
+          yarn run test
+          yarn run lint
