@@ -1,0 +1,32 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "module": "ESNext",
+        "lib": [
+            "ES6",
+            "DOM",
+            "ES2016",
+            "ES2017"
+        ],
+        "allowJs": false,
+        "checkJs": false,
+        "declaration": true,
+        "rootDir": "./lib",
+        "baseUrl": "./lib",
+        "noEmit": true,
+        "composite": true,
+        "tsBuildInfoFile": "dist/tsbuild.info",
+        "outDir": "./",
+        "declarationDir": "./output/lib",
+        "noImplicitAny": true
+    },
+    "exclude": [
+        "dist",
+        "test",
+        "lib/**/test",
+        "node_modules",
+        "lib/**/*.spec.ts",
+        "lib/**/*.spec.tsx",
+        "lib/**/*.stories.tsx"
+    ]
+}
