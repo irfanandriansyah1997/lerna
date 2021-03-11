@@ -1,0 +1,7 @@
+_base/helper/helper
+_base/helper/node_modules
+_base/helper/build
+
+_base/model/model
+_base/model/node_modules
+_base/node_modules/build
