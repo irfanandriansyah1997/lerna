@@ -95,6 +95,24 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.TOKEN_BUILD }}
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_BUILD }}
+  push-develop:
+    needs: do-linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          token: ${{ secrets.TOKEN_BUILD }}
+          fetch-depth: 0
+
+      - uses: webfactory/ssh-agent@v0.5.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Config git user
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "irfanandriansyah10@gmail.com"
 
       - name: Push to develop
         run: |
