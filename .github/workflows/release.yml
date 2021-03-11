@@ -8,6 +8,7 @@ on:
 jobs:
     publish-gpr:
         name: Publish to GPR
+        needs: Do Linter
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
