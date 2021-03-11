@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/helper@0.10.0...@irfanandriansyah1997/helper@0.11.0) (2021-03-11)
+
+
+### Features
+
+* **build:** setup rollup config ([d04a37c](https://github.com/irfanandriansyah1997/lerna/commit/d04a37c634fe958352f03746d1afd4acb524cf87))
+* **code:** install linter on _base directory ([efeef20](https://github.com/irfanandriansyah1997/lerna/commit/efeef2029fc7221b746bdfd3674f463fa8a19a22))
+
+
+
+
+
 # [0.10.0](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/helper@0.9.0...@irfanandriansyah1997/helper@0.10.0) (2021-03-11)
 
 
