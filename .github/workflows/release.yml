@@ -29,7 +29,6 @@ jobs:
             - name: Do Linter
               run: yarn run test
     publish-gpr:
-        if: startsWith(github.ref, 'refs/tags/v')
         needs: do-linter
         runs-on: ubuntu-latest
         steps:
