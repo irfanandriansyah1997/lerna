@@ -6,7 +6,30 @@ on:
       - main
 
 jobs:
+  check-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: should it be skipped?
+        env:
+          COMMIT_FILTER: 'chore(release)'
+        run: |
+          # Get last commit message
+          readonly local last_commit_log=$(git log -1 --pretty=format:"%s")
+          echo "last commit log: $last_commit_log"
+
+          readonly local filter_count=$(echo "$last_commit_log" | grep -c "$COMMIT_FILTER" )
+          echo "number of occurence of '$COMMIT_FILTER' in '$last_commit_log': $filter_count"
+
+          if [[ "$filter_count" -eq 0 ]]; then
+            echo "all good, continue"
+          else
+            echo "the last commit log \"$last_commit_log\" contains \"$COMMIT_FILTER\", stopping"
+            exit 78
+          fi
+
+    if: "!contains(github.event.head_commit.message, 'chore(release)')"
   do-linter:
+    needs: check-commit
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -72,3 +95,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.TOKEN_BUILD }}
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_BUILD }}
+
+      - name: Push to develop
+        run: |
+          git checkout -b develop
+          git log
+          git push origin develop -f
