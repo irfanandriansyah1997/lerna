@@ -21,7 +21,7 @@
     "url": "git+https://github.com/irfanandriansyah1997/lerna.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Error: run tests from model\""
   },
   "bugs": {
     "url": "https://github.com/irfanandriansyah1997/lerna/issues"
