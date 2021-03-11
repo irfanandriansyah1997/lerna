@@ -11,8 +11,9 @@
   "scripts": {
     "start": "lerna exec yarn start",
     "test": "lerna run test --parallel",
-    "bootstrap": "yarn global add lerna && lerna bootstrap",
-    "release": "lerna publish --no-verify-access",
+    "install-depedency": "lerna exec yarn install",
+    "postinstall-depedency": "lerna link",
+    "bootstrap": "lerna bootstrap",
     "publish:ci": "lerna publish from-package --yes",
     "version:ci": "lerna version --yes --conventional-commits --create-release github --message 'chore(release): publish'"
   },
@@ -23,7 +24,9 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "workspaces": ["_base/*"],
+  "workspaces": [
+    "_base/*"
+  ],
   "author": "Irfan Andriansyah",
   "license": "ISC",
   "bugs": {

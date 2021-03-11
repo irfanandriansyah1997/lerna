@@ -1,4 +1,4 @@
-name: Release V2
+name: Release Asset
 
 on:
     push:
@@ -32,6 +32,7 @@ jobs:
             - name: Bump versions and publish packages
               run: |
                   yarn
+                  yarn global add lerna
                   yarn run version:ci
                   yarn run publish:ci
               env:
