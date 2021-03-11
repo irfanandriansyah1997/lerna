@@ -14,7 +14,7 @@
             "npmClient": "npm"
         },
         "version": {
-            "allowBranch": "main",
+            "allowBranch": ["main", "release", "develop"],
             "ignoreChanges": ["**/*.md"]
         }
     }

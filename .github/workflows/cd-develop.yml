@@ -1,0 +1,95 @@
+name: Release Asset
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  check-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: should it be skipped?
+        env:
+          COMMIT_FILTER: 'chore(patch)'
+        run: |
+          # Get last commit message
+          readonly local last_commit_log=$(git log -1 --pretty=format:"%s")
+          echo "last commit log: $last_commit_log"
+
+          readonly local filter_count=$(echo "$last_commit_log" | grep -c "$COMMIT_FILTER" )
+          echo "number of occurence of '$COMMIT_FILTER' in '$last_commit_log': $filter_count"
+
+          if [[ "$filter_count" -eq 0 ]]; then
+            echo "all good, continue"
+          else
+            echo "the last commit log \"$last_commit_log\" contains \"$COMMIT_FILTER\", stopping"
+            exit 78
+          fi
+  do-linter:
+    needs: check-commit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: 'https://npm.pkg.github.com/'
+
+      - name: Install Depedency
+        run: |
+          yarn global add lerna
+          yarn
+
+      - name: Build Asset
+        run: |
+          yarn run compile-helper
+          yarn run compile-model
+
+      - name: Do Linter
+        run: |
+          yarn run test
+          yarn run lint
+  publish-gpr:
+    needs: do-linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          token: ${{ secrets.TOKEN_BUILD }}
+          fetch-depth: 0
+
+      - uses: webfactory/ssh-agent@v0.5.1
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: 'https://npm.pkg.github.com/'
+
+      - name: Ensure access
+        run: npm whoami --registry https://npm.pkg.github.com/
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.TOKEN_BUILD }}
+
+      - name: Config git user
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "irfanandriansyah10@gmail.com"
+
+      - name: Bump versions and publish packages
+        run: |
+          yarn
+          yarn global add lerna
+          yarn run compile-helper
+          yarn run compile-model
+          yarn run version-patch:ci
+          yarn run publish:ci
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN_BUILD }}
+          NODE_AUTH_TOKEN: ${{ secrets.TOKEN_BUILD }}

@@ -42,7 +42,9 @@
     "postinstall-depedency": "lerna link",
     "bootstrap": "lerna bootstrap",
     "publish:ci": "lerna publish from-package --yes",
-    "version:ci": "lerna version --yes --conventional-commits --create-release github --message 'chore(release): publish'",
+    "version:ci": "lerna version --yes --conventional-commits --conventional-graduate --create-release github --message 'chore(release): publish'",
+    "version-release:ci": "lerna version --yes --conventional-commits --conventional-prerelease --message 'chore(pre-release): publish'",
+    "version-patch:ci": "lerna version patch --yes --conventional-commits --message 'chore(patch): publish'",
     "lint": "eslint --ignore-path .gitignore \"_base/**/*.+(ts|js|tsx)\"",
     "format": "prettier --ignore-path .gitignore \"_base/**/*.+(ts|js|tsx)\" --write",
     "lint-staged": "lint-staged"
