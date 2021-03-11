@@ -22,7 +22,9 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "workspaces": ["_base/*"],
+  "workspaces": [
+    "_base/*"
+  ],
   "author": "Irfan Andriansyah",
   "license": "ISC",
   "bugs": {
