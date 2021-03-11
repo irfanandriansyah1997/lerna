@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.2](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/helper@0.11.1...@irfanandriansyah1997/helper@0.11.2) (2021-03-11)
+
+
+### Features
+
+* **library:** update return generate message ([be142df](https://github.com/irfanandriansyah1997/lerna/commit/be142df4c9522a25644e9ae08d929874c636d30e))
+
+
+
+
+
 ## [0.11.1](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/helper@0.11.0...@irfanandriansyah1997/helper@0.11.1) (2021-03-11)
 
 **Note:** Version bump only for package @irfanandriansyah1997/helper
