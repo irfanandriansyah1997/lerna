@@ -4,4 +4,4 @@
  * @description
  * @since 2021.03.11
  */
-export const GenerateMessage = (): string => 'This is message';
+export const GenerateMessage = (): string => 'This is message sample';
