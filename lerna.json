@@ -1,21 +1,21 @@
 {
-  "packages": [
-    "_base/*",
-    "apps"
-  ],
-  "version": "independent",
-  "useWorkspaces": true,
-  "npmClient": "yarn",
-  "command": {
-    "publish": {
-      "message": "chore(release): publish",
-      "registry": "https://npm.pkg.github.com",
-      "allowBranch": "main",
-      "npmClient": "npm"
-    },
-    "version": {
-        "allowBranch": "main",
-        "ignoreChanges": ["**/*.md"]
+    "packages": [
+        "_base/*",
+        "apps"
+    ],
+    "version": "independent",
+    "useWorkspaces": true,
+    "npmClient": "yarn",
+    "command": {
+        "publish": {
+            "message": "chore(release): publish",
+            "registry": "https://npm.pkg.github.com",
+            "allowBranch": "main",
+            "npmClient": "npm"
+        },
+        "version": {
+            "allowBranch": "main",
+            "ignoreChanges": ["**/*.md"]
+        }
     }
-  }
 }
