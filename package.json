@@ -44,7 +44,21 @@
     "publish:ci": "lerna publish from-package --yes",
     "version:ci": "lerna version --yes --conventional-commits --create-release github --message 'chore(release): publish'",
     "lint": "eslint --ignore-path .gitignore \"_base/**/*.+(ts|js|tsx)\"",
-    "format": "prettier --ignore-path .gitignore \"_base/**/*.+(ts|js|tsx)\" --write"
+    "format": "prettier --ignore-path .gitignore \"_base/**/*.+(ts|js|tsx)\" --write",
+    "lint-staged": "lint-staged"
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook --disable-emoji || true",
+      "pre-commit": "sh etc/git-hooks/check-code.sh",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "./src/**/*.{ts,js,jsx,tsx}": [
+      "yarn lint --fix",
+      "yarn format"
+    ]
   },
   "repository": {
     "type": "git",
