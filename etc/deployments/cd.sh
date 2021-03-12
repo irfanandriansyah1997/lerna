@@ -43,7 +43,7 @@ _STAGE_COMMIT() {
     echo "all good, continue"
   else
     echo "skip ci"
-    exit 1
+    exit 78
   fi
 }
 
