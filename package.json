@@ -1,6 +1,53 @@
 {
   "name": "lerna",
+  "author": "Irfan Andriansyah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/irfanandriansyah1997/lerna/issues"
+  },
+  "homepage": "https://github.com/irfanandriansyah1997/lerna#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irfanandriansyah1997/lerna.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "workspaces": [
+    "_base/*"
+  ],
   "private": true,
+  "description": "learn multiple package using lerna",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "lerna exec yarn start",
+    "test": "lerna run test --parallel",
+    "compile-helper": "lerna run compile --parallel --scope=\"@irfanandriansyah1997/helper\"",
+    "compile-model": "lerna run compile --parallel --scope=\"@irfanandriansyah1997/model\"",
+    "install-depedency": "lerna exec yarn install",
+    "postinstall-depedency": "lerna link",
+    "bootstrap": "lerna bootstrap",
+    "publish:ci": "lerna publish from-package --yes",
+    "version:ci": "lerna version --yes --conventional-commits --conventional-graduate --create-release github --message 'chore(release): publish'",
+    "version-feature:ci": "lerna version --yes --conventional-commits --conventional-prerelease --message 'chore(pre-release): publish'",
+    "lint": "eslint --ignore-path .gitignore \"_base/**/*.+(ts|js|tsx)\"",
+    "format": "prettier --ignore-path .gitignore \"_base/**/*.+(ts|js|tsx)\" --write",
+    "lint-staged": "lint-staged"
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook --disable-emoji || true",
+      "pre-commit": "sh etc/git-hooks/check-code.sh",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "./src/**/*.{ts,js,jsx,tsx}": [
+      "yarn lint --fix",
+      "yarn format"
+    ]
+  },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.13.5",
     "@commitlint/cli": "^12.0.1",
@@ -29,53 +76,5 @@
     "lint-staged": "10.5.4",
     "prettier": "^2.2.1",
     "typescript": "^4.2.3"
-  },
-  "description": "learn multiple package using lerna",
-  "version": "0.0.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "lerna exec yarn start",
-    "test": "lerna run test --parallel",
-    "compile-helper": "lerna run compile --parallel --scope=\"@irfanandriansyah1997/helper\"",
-    "compile-model": "lerna run compile --parallel --scope=\"@irfanandriansyah1997/model\"",
-    "install-depedency": "lerna exec yarn install",
-    "postinstall-depedency": "lerna link",
-    "bootstrap": "lerna bootstrap",
-    "publish:ci": "lerna publish from-package --yes",
-    "version:ci": "lerna version --yes --conventional-commits --conventional-graduate --create-release github --message 'chore(release): publish'",
-    "version-release:ci": "lerna version --yes --conventional-commits --conventional-prerelease --message 'chore(pre-release): publish'",
-    "version-patch:ci": "lerna version patch --yes --conventional-commits --message 'chore(patch): publish'",
-    "lint": "eslint --ignore-path .gitignore \"_base/**/*.+(ts|js|tsx)\"",
-    "format": "prettier --ignore-path .gitignore \"_base/**/*.+(ts|js|tsx)\" --write",
-    "lint-staged": "lint-staged"
-  },
-  "husky": {
-    "hooks": {
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook --disable-emoji || true",
-      "pre-commit": "sh etc/git-hooks/check-code.sh",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "lint-staged": {
-    "./src/**/*.{ts,js,jsx,tsx}": [
-      "yarn lint --fix",
-      "yarn format"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/irfanandriansyah1997/lerna.git"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
-  "workspaces": [
-    "_base/*"
-  ],
-  "author": "Irfan Andriansyah",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/irfanandriansyah1997/lerna/issues"
-  },
-  "homepage": "https://github.com/irfanandriansyah1997/lerna#readme"
+  }
 }
