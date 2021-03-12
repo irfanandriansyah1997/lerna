@@ -95,6 +95,10 @@ _BUILD_MASTER() {
   elif [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
     node_modules/.bin/lerna version patch --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
   fi
+
+  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+    yarn run publish:ci
+  fi
 }
 
 _BUILD_FEATURE() {
@@ -107,6 +111,10 @@ _BUILD_FEATURE() {
   elif [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
     node_modules/.bin/lerna version prepatch --yes --conventional-commits --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
   fi
+
+  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+    yarn run publish:ci
+  fi
 }
 
 _BUILD_HOTFIX() {
@@ -114,6 +122,7 @@ _BUILD_HOTFIX() {
 
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
     node_modules/.bin/lerna version --yes prepatch --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
+    yarn run publish:ci
   fi
 }
 
