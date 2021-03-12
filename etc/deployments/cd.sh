@@ -1,9 +1,10 @@
 #!/bin/bash
 MAJOR_KEYWORD="(major)"
 MINOR_KEYWORD="(minor)"
-PATCH_KEYWORD="(keyword)"
+PATCH_KEYWORD="(patch)"
+BUMP_KEYWORD="(bump)"
 
-readonly local COMMIT_LOG=$(git log -1 --pretty=format:"%s")
+# readonly local COMMIT_LOG=$(git log -1 --pretty=format:"%s")
 
 
 _MAIN() {
@@ -59,22 +60,57 @@ _STAGE_TEST() {
 # Stage Build
 # ===============================================
 _STAGE_BUILD() {
+  readonly local FORMATTED_BRANCH=${CURRENT_BRANCH#refs/heads/}
   readonly local IS_MAJOR=$(echo "$COMMIT_LOG" | grep -c "$MAJOR_KEYWORD" )
   readonly local IS_MINOR=$(echo "$COMMIT_LOG" | grep -c "$MINOR_KEYWORD" )
   readonly local IS_PATCH=$(echo "$COMMIT_LOG" | grep -c "$PATCH_KEYWORD" )
+  readonly local IS_BUMP=$(echo "$COMMIT_LOG" | grep -c "$BUMP_KEYWORD" )
+  readonly local IS_MASTER=$(echo "$FORMATTED_BRANCH" | grep -c "main" )
+  readonly local IS_HOTFIX=$(echo "$FORMATTED_BRANCH" | grep -c "hotfix" )
+  readonly local IS_FEATURE=$(echo "$FORMATTED_BRANCH" | grep -c "feature" )
+  # command_github = "--create-release github --message 'chore(release): publish'"
 
-  _INSTALL_DEPENDENCY
-  _COMPILE_ASSET
+  # _INSTALL_DEPENDENCY
+  # _COMPILE_ASSET
+
+  if [[ "$IS_MASTER" != 0 ]]; then
+    _BUILD_MASTER
+  elif [[ "$IS_HOTFIX" != 0 ]]; then
+    _BUILD_HOTFIX
+  elif [[ "$IS_FEATURE" != 0 ]]; then
+    _BUILD_FEATURE
+  fi
+}
+
+_BUILD_MASTER() {
+  echo "_BUILD_MASTER"
 
   if [[ "$IS_MAJOR" != 0 ]]; then
-    echo "update major version"
-    lerna version major --yes --conventional-commits --conventional-graduate --no-git-tag-version --no-push
+    lerna version major --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
   elif [[ "$IS_MINOR" != 0 ]]; then
-    echo "update minor version"
-    lerna version minor --yes --conventional-commits --conventional-graduate --no-git-tag-version --no-push
-  elif [[ "$IS_PATCH" != 0 ]]; then
-    echo "update patch version"
-    lerna version patch --yes --conventional-commits --conventional-graduate --no-git-tag-version --no-push
+    lerna version minor --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
+  elif [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+    lerna version patch --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
+  fi
+}
+
+_BUILD_FEATURE() {
+  echo "_BUILD_FEATURE"
+
+  if [[ "$IS_MAJOR" != 0 ]]; then
+    lerna version premajor --yes --conventional-commits --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
+  elif [[ "$IS_MINOR" != 0 ]]; then
+    lerna version preminor --yes --conventional-commits --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
+  elif [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+    lerna version prepatch --yes --conventional-commits --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
+  fi
+}
+
+_BUILD_HOTFIX() {
+  echo "_BUILD_HOTFIX"
+
+  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+    lerna version --yes prepatch --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
   fi
 }
 

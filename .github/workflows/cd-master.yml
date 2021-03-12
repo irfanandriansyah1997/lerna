@@ -5,10 +5,8 @@ on:
   pull_request:
     branches:
       - master
+      - feature-*
     types: [closed]
-  push:
-    branches:
-      - main
 
 jobs:
   check-commit:
@@ -21,6 +19,7 @@ jobs:
         env:
           COMMIT_FILTER: 'chore(release)'
           CI_STAGE_NAME: 'CHECK_COMMIT'
+          CURRENT_BRANCH: ${{ github.ref }}
         run: |
           sh etc/deployments/cd.sh
 
@@ -37,7 +36,7 @@ jobs:
           node-version: 12
           registry-url: 'https://npm.pkg.github.com/'
 
-      - name: Do Linter
+      - name: Do linter
         env:
           CI_STAGE_NAME: 'TEST'
         run: |
@@ -75,6 +74,7 @@ jobs:
       - name: Bump versions and publish packages
         env:
           CI_STAGE_NAME: 'BUILD'
+          CURRENT_BRANCH: ${{ github.ref }}
           GH_TOKEN: ${{ secrets.TOKEN_BUILD }}
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_BUILD }}
         run: |

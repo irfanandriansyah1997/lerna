@@ -13,3 +13,8 @@ compile:
 	lerna run compile --scope="@irfanandriansyah1997/helper"
 	lerna run compile --scope="@irfanandriansyah1997/model"
 
+sample-code-feature:
+	make -f Makefile-test sample-code-feature
+
+sample-code-hotfix:
+	make -f Makefile-test sample-code-hotfix

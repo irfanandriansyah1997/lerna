@@ -15,17 +15,8 @@ jobs:
           node-version: 12
           registry-url: 'https://npm.pkg.github.com/'
 
-      - name: Install Depedency
+      - name: Do linter
+        env:
+          CI_STAGE_NAME: 'TEST'
         run: |
-          yarn global add lerna
-          yarn
-
-      - name: Build Asset
-        run: |
-          yarn run compile-helper
-          yarn run compile-model
-
-      - name: Linter & Unit Test
-        run: |
-          yarn run test
-          yarn run lint
+          sh etc/deployments/cd.sh
