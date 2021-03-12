@@ -15,7 +15,8 @@
         },
         "version": {
             "allowBranch": ["main", "hotfix-*", "feature-*"],
-            "ignoreChanges": ["**/*.md", "**/*.spec.ts", "**/*.spec.ts"]
+            "ignoreChanges": ["**/*.md", "**/*.spec.ts", "**/*.spec.ts"],
+            "message": "chore(release): publish %s"
         }
     }
 }

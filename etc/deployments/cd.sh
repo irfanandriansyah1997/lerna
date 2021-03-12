@@ -71,8 +71,10 @@ _STAGE_BUILD() {
   readonly local IS_HOTFIX=$(echo "$FORMATTED_BRANCH" | grep -c "hotfix" )
   readonly local IS_FEATURE=$(echo "$FORMATTED_BRANCH" | grep -c "feature" )
 
-  _INSTALL_DEPENDENCY
-  _COMPILE_ASSET
+  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+    _INSTALL_DEPENDENCY
+    _COMPILE_ASSET
+  fi
 
   if [[ "$IS_MASTER" != 0 ]]; then
     _BUILD_MASTER
@@ -87,11 +89,11 @@ _BUILD_MASTER() {
   echo "_BUILD_MASTER"
 
   if [[ "$IS_MAJOR" != 0 ]]; then
-    lerna version major --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
+    node_modules/.bin/lerna version major --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
   elif [[ "$IS_MINOR" != 0 ]]; then
-    lerna version minor --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
+    node_modules/.bin/lerna version minor --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
   elif [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    lerna version patch --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
+    node_modules/.bin/lerna version patch --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
   fi
 }
 
@@ -99,11 +101,11 @@ _BUILD_FEATURE() {
   echo "_BUILD_FEATURE"
 
   if [[ "$IS_MAJOR" != 0 ]]; then
-    lerna version premajor --yes --conventional-commits --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
+    node_modules/.bin/lerna version premajor --yes --conventional-commits --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
   elif [[ "$IS_MINOR" != 0 ]]; then
-    lerna version preminor --yes --conventional-commits --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
+    node_modules/.bin/lerna version preminor --yes --conventional-commits --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
   elif [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    lerna version prepatch --yes --conventional-commits --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
+    node_modules/.bin/lerna version prepatch --yes --conventional-commits --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
   fi
 }
 
@@ -111,7 +113,7 @@ _BUILD_HOTFIX() {
   echo "_BUILD_HOTFIX"
 
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    lerna version --yes prepatch --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
+    node_modules/.bin/lerna version --yes prepatch --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
   fi
 }
 
@@ -119,7 +121,6 @@ _INSTALL_DEPENDENCY() {
   echo "_INSTALL_DEPENDENCY"
 
   yarn
-  yarn global add lerna
 }
 
 _COMPILE_ASSET() {

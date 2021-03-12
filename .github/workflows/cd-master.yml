@@ -88,7 +88,7 @@ jobs:
         env:
           CI_STAGE_NAME: 'BUILD'
           CURRENT_BRANCH: ${{ github.ref }}
-          LERNA_ACTION: '--create-release github --message "chore(release): publish"'
+          LERNA_ACTION: '--create-release github'
           GH_TOKEN: ${{ secrets.TOKEN_BUILD }}
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_BUILD }}
         run: |
