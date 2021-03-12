@@ -4,12 +4,12 @@ on:
   # When Release Pull Request is merged
   push:
     branches:
-      - master
+      - main
       - feature-*
       - hotfix-*
   pull_request:
     branches:
-      - master
+      - main
       - feature-*
       - hotfix-*
     types: [closed]
