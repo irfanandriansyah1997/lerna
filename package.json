@@ -30,10 +30,13 @@
     "bootstrap": "lerna bootstrap",
     "publish:ci": "lerna publish from-package --yes",
     "version:ci": "lerna version --yes --conventional-commits --conventional-graduate --create-release github --message 'chore(release): publish'",
-    "version-feature:ci": "lerna version --yes --conventional-commits --conventional-prerelease --message 'chore(pre-release): publish'",
+    "version-major:ci": "lerna version major --yes --conventional-commits --conventional-graduate --create-release github --message 'chore(release): publish'",
+    "version-minor:ci": "lerna version minor --yes --conventional-commits --conventional-graduate --create-release github --message 'chore(release): publish'",
+    "version-patch:ci": "lerna version patch --yes --conventional-commits --conventional-graduate --create-release github --message 'chore(release): publish'",
     "lint": "eslint --ignore-path .gitignore \"_base/**/*.+(ts|js|tsx)\"",
     "format": "prettier --ignore-path .gitignore \"_base/**/*.+(ts|js|tsx)\" --write",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "damn": "echo \"a\""
   },
   "husky": {
     "hooks": {

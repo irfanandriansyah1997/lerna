@@ -6,12 +6,18 @@ on:
     branches:
       - master
     types: [closed]
+  push:
+    branches:
+      - main
 
 jobs:
   check-commit:
     runs-on: ubuntu-latest
     steps:
-      - name: should it be skipped?
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Should it be skipped?
         env:
           COMMIT_FILTER: 'chore(release)'
         run: |
