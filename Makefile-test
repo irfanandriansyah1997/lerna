@@ -1,0 +1,80 @@
+
+###########################################################################
+## Make file test
+## @author: Irfan Andriansyah <irfan@99.co>
+## @since: 2020.03.22
+###########################################################################
+default:
+
+###########################################################################
+## Testing Version Feature
+###########################################################################
+
+sample-code-feature:
+	@echo "======================================================="
+	@echo "feature major"
+	@echo "======================================================="
+	@echo ""
+	@make  -f Makefile-test test-feature-major
+	@echo ""
+	@echo "======================================================="
+	@echo "feature minor"
+	@echo "======================================================="
+	@echo ""
+	@make  -f Makefile-test test-feature-minor
+	@echo ""
+	@echo "======================================================="
+	@echo "feature patch"
+	@echo "======================================================="
+	@make  -f Makefile-test test-feature-patch
+	@echo ""
+	@echo "======================================================="
+	@echo "feature random"
+	@echo "======================================================="
+	@make  -f Makefile-test test-feature-random
+
+test-feature-major:
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (major)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/main" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (major)" sh etc/deployments/cd.sh
+	@git checkout _base/
+
+test-feature-minor:
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (minor)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/main" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (minor)" sh etc/deployments/cd.sh
+	@git checkout _base/
+
+test-feature-patch:
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (patch)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/main" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (patch)" sh etc/deployments/cd.sh
+	@git checkout _base/
+
+test-feature-random:
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (patch)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (patch)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (minor)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (patch)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (major)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (minor)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (patch)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (patch)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (major)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/main" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (patch)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/main" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release)" sh etc/deployments/cd.sh
+	@git checkout _base/
+
+###########################################################################
+## Testing Version Hotfix
+###########################################################################
+
+sample-code-hotfix:
+	@echo "======================================================="
+	@echo "hotfix major"
+	@echo "======================================================="
+	@echo ""
+	@make  -f Makefile-test test-hotfix
+
+test-hotfix:
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/hotfix-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (bump)" sh etc/deployments/cd.sh
+	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/main" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (major)" sh etc/deployments/cd.sh
+	@git checkout _base/

@@ -8,7 +8,7 @@ import { ItsTrue } from '@irfanandriansyah1997/helper/lib/validation.helper';
  */
 export const Model = (): string => {
   if (ItsTrue()) {
-    return 'from model';
+    return 'from model v2';
   }
-  return 'simple model';
+  return 'simple model v2';
 };

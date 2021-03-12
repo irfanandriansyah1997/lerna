@@ -1,32 +1,38 @@
 name: Release Asset
 
 on:
+  # When Release Pull Request is merged
   push:
     branches:
-      - main
+      - master
+      - feature-*
+      - hotfix-*
+  pull_request:
+    branches:
+      - master
+      - feature-*
+      - hotfix-*
+    types: [closed]
 
 jobs:
   check-commit:
+    if: "!contains(github.event.head_commit.message, 'chore(release)')"
     runs-on: ubuntu-latest
     steps:
-      - name: should it be skipped?
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Should it be skipped?
         env:
           COMMIT_FILTER: 'chore(release)'
+          CI_STAGE_NAME: 'CHECK_COMMIT'
+          CURRENT_BRANCH: ${{ github.ref }}
         run: |
-          # Get last commit message
-          readonly local last_commit_log=$(git log -1 --pretty=format:"%s")
-          echo "last commit log: $last_commit_log"
+          bash etc/deployments/cd.sh
 
-          readonly local filter_count=$(echo "$last_commit_log" | grep -c "$COMMIT_FILTER" )
-          echo "number of occurence of '$COMMIT_FILTER' in '$last_commit_log': $filter_count"
-
-          if [[ "$filter_count" -eq 0 ]]; then
-            echo "all good, continue"
-          else
-            echo "the last commit log \"$last_commit_log\" contains \"$COMMIT_FILTER\", stopping"
-            exit 78
-          fi
   do-linter:
+    if: "!contains(github.event.head_commit.message, 'chore(release)')"
     needs: check-commit
     runs-on: ubuntu-latest
     steps:
@@ -39,21 +45,17 @@ jobs:
           node-version: 12
           registry-url: 'https://npm.pkg.github.com/'
 
-      - name: Install Depedency
-        run: |
-          yarn global add lerna
-          yarn
+      - name: Install NPM Cache
+        uses: c-hive/gha-yarn-cache@v1
 
-      - name: Build Asset
+      - name: Do linter
+        env:
+          CI_STAGE_NAME: 'TEST'
         run: |
-          yarn run compile-helper
-          yarn run compile-model
+          bash etc/deployments/cd.sh
 
-      - name: Do Linter
-        run: |
-          yarn run test
-          yarn run lint
   publish-gpr:
+    if: "!contains(github.event.head_commit.message, 'chore(release)')"
     needs: do-linter
     runs-on: ubuntu-latest
     steps:
@@ -72,10 +74,13 @@ jobs:
           node-version: 12
           registry-url: 'https://npm.pkg.github.com/'
 
+      - name: Install NPM Cache
+        uses: c-hive/gha-yarn-cache@v1
+
       - name: Ensure access
-        run: npm whoami --registry https://npm.pkg.github.com/
         env:
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_BUILD }}
+        run: npm whoami --registry https://npm.pkg.github.com/
 
       - name: Config git user
         run: |
@@ -83,37 +88,11 @@ jobs:
           git config --global user.email "irfanandriansyah10@gmail.com"
 
       - name: Bump versions and publish packages
-        run: |
-          yarn
-          yarn global add lerna
-          yarn run compile-helper
-          yarn run compile-model
-          yarn run version:ci
-          yarn run publish:ci
         env:
+          CI_STAGE_NAME: 'BUILD'
+          CURRENT_BRANCH: ${{ github.ref }}
+          LERNA_ACTION: '--create-release github'
           GH_TOKEN: ${{ secrets.TOKEN_BUILD }}
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_BUILD }}
-  push-develop:
-    needs: do-linter
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          token: ${{ secrets.TOKEN_BUILD }}
-          fetch-depth: 0
-
-      - uses: webfactory/ssh-agent@v0.5.1
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Config git user
         run: |
-          git config --global user.name "${{ github.actor }}"
-          git config --global user.email "irfanandriansyah10@gmail.com"
-
-      - name: Push to develop
-        run: |
-          git checkout -b release
-          git log
-          git push origin release -f
+          bash etc/deployments/cd.sh

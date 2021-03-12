@@ -15,17 +15,11 @@ jobs:
           node-version: 12
           registry-url: 'https://npm.pkg.github.com/'
 
-      - name: Install Depedency
-        run: |
-          yarn global add lerna
-          yarn
+      - name: Install NPM Cache
+        uses: c-hive/gha-yarn-cache@v1
 
-      - name: Build Asset
+      - name: Do linter
+        env:
+          CI_STAGE_NAME: 'TEST'
         run: |
-          yarn run compile-helper
-          yarn run compile-model
-
-      - name: Linter & Unit Test
-        run: |
-          yarn run test
-          yarn run lint
+          bash etc/deployments/cd.sh
