@@ -20,20 +20,10 @@ jobs:
       - name: Should it be skipped?
         env:
           COMMIT_FILTER: 'chore(release)'
+          CI_STAGE_NAME: 'CHECK_COMMIT'
         run: |
-          # Get last commit message
-          readonly local last_commit_log=$(git log -1 --pretty=format:"%s")
-          echo "last commit log: $last_commit_log"
+          sh etc/deployments/cd.sh
 
-          readonly local filter_count=$(echo "$last_commit_log" | grep -c "$COMMIT_FILTER" )
-          echo "number of occurence of '$COMMIT_FILTER' in '$last_commit_log': $filter_count"
-
-          if [[ "$filter_count" -eq 0 ]]; then
-            echo "all good, continue"
-          else
-            echo "the last commit log \"$last_commit_log\" contains \"$COMMIT_FILTER\", stopping"
-            exit 78
-          fi
   do-linter:
     needs: check-commit
     runs-on: ubuntu-latest
@@ -47,20 +37,12 @@ jobs:
           node-version: 12
           registry-url: 'https://npm.pkg.github.com/'
 
-      - name: Install Depedency
-        run: |
-          yarn global add lerna
-          yarn
-
-      - name: Build Asset
-        run: |
-          yarn run compile-helper
-          yarn run compile-model
-
       - name: Do Linter
+        env:
+          CI_STAGE_NAME: 'TEST'
         run: |
-          yarn run test
-          yarn run lint
+          sh etc/deployments/cd.sh
+
   publish-gpr:
     needs: do-linter
     runs-on: ubuntu-latest
@@ -81,9 +63,9 @@ jobs:
           registry-url: 'https://npm.pkg.github.com/'
 
       - name: Ensure access
-        run: npm whoami --registry https://npm.pkg.github.com/
         env:
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_BUILD }}
+        run: npm whoami --registry https://npm.pkg.github.com/
 
       - name: Config git user
         run: |
@@ -91,13 +73,9 @@ jobs:
           git config --global user.email "irfanandriansyah10@gmail.com"
 
       - name: Bump versions and publish packages
-        run: |
-          yarn
-          yarn global add lerna
-          yarn run compile-helper
-          yarn run compile-model
-          yarn run version:ci
-          yarn run publish:ci
         env:
+          CI_STAGE_NAME: 'BUILD'
           GH_TOKEN: ${{ secrets.TOKEN_BUILD }}
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_BUILD }}
+        run: |
+          sh etc/deployments/cd.sh

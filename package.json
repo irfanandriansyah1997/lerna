@@ -23,8 +23,6 @@
   "scripts": {
     "start": "lerna exec yarn start",
     "test": "lerna run test --parallel",
-    "compile-helper": "lerna run compile --parallel --scope=\"@irfanandriansyah1997/helper\"",
-    "compile-model": "lerna run compile --parallel --scope=\"@irfanandriansyah1997/model\"",
     "install-depedency": "lerna exec yarn install",
     "postinstall-depedency": "lerna link",
     "bootstrap": "lerna bootstrap",

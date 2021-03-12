@@ -14,8 +14,8 @@
             "npmClient": "npm"
         },
         "version": {
-            "allowBranch": ["main", "release", "develop"],
-            "ignoreChanges": ["**/*.md"]
+            "allowBranch": ["main", "hotfix-*", "feature-*"],
+            "ignoreChanges": ["**/*.md", "**/*.spec.ts", "**/*.spec.ts"]
         }
     }
 }
