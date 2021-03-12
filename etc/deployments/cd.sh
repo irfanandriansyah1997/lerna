@@ -1,10 +1,12 @@
 #!/bin/bash
+
+set -e
+
 MAJOR_KEYWORD="(major)"
 MINOR_KEYWORD="(minor)"
 PATCH_KEYWORD="(patch)"
 BUMP_KEYWORD="(bump)"
-
-# readonly local COMMIT_LOG=$(git log -1 --pretty=format:"%s")
+COMMIT_LOG=$(git log -1 --pretty=format:"%s")
 
 
 _MAIN() {
@@ -68,10 +70,9 @@ _STAGE_BUILD() {
   readonly local IS_MASTER=$(echo "$FORMATTED_BRANCH" | grep -c "main" )
   readonly local IS_HOTFIX=$(echo "$FORMATTED_BRANCH" | grep -c "hotfix" )
   readonly local IS_FEATURE=$(echo "$FORMATTED_BRANCH" | grep -c "feature" )
-  # command_github = "--create-release github --message 'chore(release): publish'"
 
-  # _INSTALL_DEPENDENCY
-  # _COMPILE_ASSET
+  _INSTALL_DEPENDENCY
+  _COMPILE_ASSET
 
   if [[ "$IS_MASTER" != 0 ]]; then
     _BUILD_MASTER

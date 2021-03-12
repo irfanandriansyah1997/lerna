@@ -2,10 +2,16 @@ name: Release Asset
 
 on:
   # When Release Pull Request is merged
+  push:
+    branches:
+      - master
+      - feature-*
+      - hotfix-*
   pull_request:
     branches:
       - master
       - feature-*
+      - hotfix-*
     types: [closed]
 
 jobs:
@@ -21,7 +27,7 @@ jobs:
           CI_STAGE_NAME: 'CHECK_COMMIT'
           CURRENT_BRANCH: ${{ github.ref }}
         run: |
-          sh etc/deployments/cd.sh
+          bash etc/deployments/cd.sh
 
   do-linter:
     needs: check-commit
@@ -40,7 +46,7 @@ jobs:
         env:
           CI_STAGE_NAME: 'TEST'
         run: |
-          sh etc/deployments/cd.sh
+          bash etc/deployments/cd.sh
 
   publish-gpr:
     needs: do-linter
@@ -75,7 +81,8 @@ jobs:
         env:
           CI_STAGE_NAME: 'BUILD'
           CURRENT_BRANCH: ${{ github.ref }}
+          LERNA_ACTION: '--create-release github --message "chore(release): publish"'
           GH_TOKEN: ${{ secrets.TOKEN_BUILD }}
           NODE_AUTH_TOKEN: ${{ secrets.TOKEN_BUILD }}
         run: |
-          sh etc/deployments/cd.sh
+          bash etc/deployments/cd.sh
