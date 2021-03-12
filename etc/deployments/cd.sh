@@ -104,12 +104,9 @@ _BUILD_MASTER() {
 _BUILD_FEATURE() {
   echo "_BUILD_FEATURE"
 
-  if [[ "$IS_MAJOR" != 0 ]]; then
-    node_modules/.bin/lerna version premajor --yes --conventional-commits --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
-  elif [[ "$IS_MINOR" != 0 ]]; then
-    node_modules/.bin/lerna version preminor --yes --conventional-commits --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
-  elif [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    node_modules/.bin/lerna version prepatch --yes --conventional-commits --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
+  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+    node_modules/.bin/lerna version --yes prepatch --preid ${FORMATTED_BRANCH}
+    yarn run publish:ci
   fi
 
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
@@ -121,7 +118,7 @@ _BUILD_HOTFIX() {
   echo "_BUILD_HOTFIX"
 
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    node_modules/.bin/lerna version --yes prepatch --preid ${FORMATTED_BRANCH} ${LERNA_ACTION}
+    node_modules/.bin/lerna version --yes --conventional-commits --conventional-prerelease
     yarn run publish:ci
   fi
 }
