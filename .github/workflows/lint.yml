@@ -22,4 +22,4 @@ jobs:
         env:
           CI_STAGE_NAME: 'TEST'
         run: |
-          sh etc/deployments/cd.sh
+          bash etc/deployments/cd.sh
