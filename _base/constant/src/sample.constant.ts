@@ -1,1 +1,1 @@
-export const SAMPLE_CONSTANT = 'this is sample constant v3';
+export const SAMPLE_CONSTANT = 'this is sample constant v4';
