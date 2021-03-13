@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/constant@0.2.0...@irfanandriansyah1997/constant@0.3.0) (2021-03-13)
+
+
+### Features
+
+* **apps:** update constant ([114d4f4](https://github.com/irfanandriansyah1997/lerna/commit/114d4f459f1cd7efd5af1ac3cd8cddf62d1b4875))
+
+
+
+
+
 # [0.2.0](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/constant@0.1.0...@irfanandriansyah1997/constant@0.2.0) (2021-03-13)
 
 
