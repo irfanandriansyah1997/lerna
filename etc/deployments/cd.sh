@@ -116,9 +116,7 @@ _BUILD_MASTER() {
     node_modules/.bin/lerna version --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
   fi
 
-  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    yarn run publish:ci
-  fi
+  yarn run publish:ci
 }
 
 _BUILD_NON_MASTER() {
