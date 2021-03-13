@@ -6,7 +6,7 @@ MAJOR_KEYWORD="(major)"
 MINOR_KEYWORD="(minor)"
 PATCH_KEYWORD="(patch)"
 BUMP_KEYWORD="(bump)"
-COMMIT_LOG=$(git log -1 --pretty=format:"%s")
+# COMMIT_LOG=$(git log -1 --pretty=format:"%s")
 
 
 _MAIN() {
@@ -71,10 +71,10 @@ _STAGE_BUILD() {
   readonly local IS_HOTFIX=$(echo "$FORMATTED_BRANCH" | grep -c "hotfix" )
   readonly local IS_FEATURE=$(echo "$FORMATTED_BRANCH" | grep -c "feature" )
 
-  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    _INSTALL_DEPENDENCY
-    _COMPILE_ASSET
-  fi
+  # if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+  #   _INSTALL_DEPENDENCY
+  #   _COMPILE_ASSET
+  # fi
 
   if [[ "$IS_MASTER" != 0 ]]; then
     _BUILD_MASTER
@@ -83,6 +83,10 @@ _STAGE_BUILD() {
   elif [[ "$IS_FEATURE" != 0 ]]; then
     _BUILD_FEATURE
   fi
+
+  # if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+  #   yarn run publish:ci
+  # fi
 }
 
 _BUILD_MASTER() {
@@ -95,22 +99,14 @@ _BUILD_MASTER() {
   elif [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
     node_modules/.bin/lerna version patch --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
   fi
-
-  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    yarn run publish:ci
-  fi
 }
 
 _BUILD_FEATURE() {
   echo "_BUILD_FEATURE"
 
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    node_modules/.bin/lerna version --yes prepatch --preid ${FORMATTED_BRANCH}
-    yarn run publish:ci
-  fi
-
-  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    yarn run publish:ci
+    echo "node_modules/.bin/lerna version --conventional-commits --conventional-prerelease --yes --preid ${FORMATTED_BRANCH} --no-git-tag-version"
+    node_modules/.bin/lerna version --conventional-commits --conventional-prerelease --yes --preid ${FORMATTED_BRANCH}
   fi
 }
 
@@ -119,7 +115,6 @@ _BUILD_HOTFIX() {
 
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
     node_modules/.bin/lerna version --yes --conventional-commits --conventional-prerelease
-    yarn run publish:ci
   fi
 }
 

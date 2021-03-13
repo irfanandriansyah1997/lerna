@@ -76,5 +76,5 @@ sample-code-hotfix:
 
 test-hotfix:
 	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/hotfix-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (bump)" sh etc/deployments/cd.sh
-	@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/main" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (major)" sh etc/deployments/cd.sh
+	#@LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/main" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (major)" sh etc/deployments/cd.sh
 	@git checkout _base/
