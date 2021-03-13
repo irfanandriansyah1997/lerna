@@ -90,8 +90,10 @@ _BUILD_MASTER() {
     node_modules/.bin/lerna version major --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
   elif [[ "$IS_MINOR" != 0 ]]; then
     node_modules/.bin/lerna version minor --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
-  else
+  elif [[ "$IS_PATCH" != 0 ]]; then
     node_modules/.bin/lerna version patch --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
+  else
+    node_modules/.bin/lerna version --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
   fi
 
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
@@ -128,7 +130,7 @@ _INSTALL_DEPENDENCY() {
 _COMPILE_ASSET() {
   echo "_COMPILE_ASSET"
 
-  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] ; then
+  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
     make compile
   fi
 }
