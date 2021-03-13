@@ -44,9 +44,6 @@ jobs:
           node-version: 12
           registry-url: 'https://npm.pkg.github.com/'
 
-      - name: Install NPM Cache
-        uses: c-hive/gha-yarn-cache@v1
-
       - name: Do linter
         env:
           CI_STAGE_NAME: 'TEST'
@@ -88,9 +85,6 @@ jobs:
         with:
           node-version: 12
           registry-url: 'https://npm.pkg.github.com/'
-
-      - name: Install NPM Cache
-        uses: c-hive/gha-yarn-cache@v1
 
       - name: Ensure access
         env:
