@@ -93,10 +93,8 @@ _STAGE_TEST() {
 # Stage Build
 # ===============================================
 _STAGE_BUILD() {
-  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    _INSTALL_DEPENDENCY
-    _COMPILE_ASSET
-  fi
+  _INSTALL_DEPENDENCY
+  _COMPILE_ASSET
 
   if [[ "$IS_MASTER" != 0 ]]; then
     _BUILD_MASTER
