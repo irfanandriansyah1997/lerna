@@ -71,22 +71,16 @@ _STAGE_BUILD() {
   readonly local IS_HOTFIX=$(echo "$FORMATTED_BRANCH" | grep -c "hotfix" )
   readonly local IS_FEATURE=$(echo "$FORMATTED_BRANCH" | grep -c "feature" )
 
-  # if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-  #   _INSTALL_DEPENDENCY
-  #   _COMPILE_ASSET
-  # fi
+  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+    _INSTALL_DEPENDENCY
+    _COMPILE_ASSET
+  fi
 
   if [[ "$IS_MASTER" != 0 ]]; then
     _BUILD_MASTER
-  elif [[ "$IS_HOTFIX" != 0 ]]; then
-    _BUILD_HOTFIX
-  elif [[ "$IS_FEATURE" != 0 ]]; then
-    _BUILD_FEATURE
+  elif [ "$IS_HOTFIX" != 0 ] || [ "$IS_FEATURE" != 0 ] ; then
+    _BUILD_NON_MASTER
   fi
-
-  # if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-  #   yarn run publish:ci
-  # fi
 }
 
 _BUILD_MASTER() {
@@ -96,25 +90,29 @@ _BUILD_MASTER() {
     node_modules/.bin/lerna version major --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
   elif [[ "$IS_MINOR" != 0 ]]; then
     node_modules/.bin/lerna version minor --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
-  elif [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+  else
     node_modules/.bin/lerna version patch --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
   fi
-}
-
-_BUILD_FEATURE() {
-  echo "_BUILD_FEATURE"
 
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    echo "node_modules/.bin/lerna version --conventional-commits --conventional-prerelease --yes --preid ${FORMATTED_BRANCH} --no-git-tag-version"
-    node_modules/.bin/lerna version --conventional-commits --conventional-prerelease --yes --preid ${FORMATTED_BRANCH}
+    yarn run publish:ci
   fi
 }
 
-_BUILD_HOTFIX() {
-  echo "_BUILD_HOTFIX"
+_BUILD_NON_MASTER() {
+  echo "_BUILD_NON_MASTER"
 
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    node_modules/.bin/lerna version --yes --conventional-commits --conventional-prerelease
+    node_modules/.bin/lerna version --conventional-commits --conventional-prerelease --yes --preid ${FORMATTED_BRANCH} --no-git-tag-version
+
+    if [ -z "$(git status --porcelain)" ]; then
+      echo "clean"
+    else
+      git commit -a -n -m 'chore(release): publish version'
+      git push origin $FORMATTED_BRANCH
+    fi
+
+    yarn run publish:ci
   fi
 }
 
