@@ -11,6 +11,14 @@ COMMIT_LOG=$(git log -1 --pretty=format:"%s")
 
 _MAIN() {
   echo "_MAIN"
+  readonly local FORMATTED_BRANCH=${CURRENT_BRANCH#refs/heads/}
+  readonly local IS_MAJOR=$(echo "$COMMIT_LOG" | grep -c "$MAJOR_KEYWORD" )
+  readonly local IS_MINOR=$(echo "$COMMIT_LOG" | grep -c "$MINOR_KEYWORD" )
+  readonly local IS_PATCH=$(echo "$COMMIT_LOG" | grep -c "$PATCH_KEYWORD" )
+  readonly local IS_BUMP=$(echo "$COMMIT_LOG" | grep -c "$BUMP_KEYWORD" )
+  readonly local IS_MASTER=$(echo "$FORMATTED_BRANCH" | grep -c "main" )
+  readonly local IS_HOTFIX=$(echo "$FORMATTED_BRANCH" | grep -c "hotfix" )
+  readonly local IS_FEATURE=$(echo "$FORMATTED_BRANCH" | grep -c "feature" )
 
   if [[ $CI_STAGE_NAME = "BUILD" ]]; then
     echo "STAGE: BUILD"
@@ -24,6 +32,10 @@ _MAIN() {
     echo "STAGE: CHECK_COMMIT"
 
     _STAGE_COMMIT
+  elif [[ $CI_STAGE_NAME = "DOABLE_PUBLISH" ]]; then
+    echo "STAGE: DOABLE_PUBLISH"
+
+    _STAGE_DOABLE_PUBLISH
   else
     echo "UNKNOWN STAGE. EXIT!"
     exit 1
@@ -48,6 +60,25 @@ _STAGE_COMMIT() {
 }
 
 # ===============================================
+# Stage Doable Publish
+# ===============================================
+_STAGE_DOABLE_PUBLISH() {
+  if [[ "$IS_MASTER" != 0 ]]; then
+    echo "pass"
+  elif [ "$IS_HOTFIX" != 0 ] || [ "$IS_FEATURE" != 0 ] ; then
+    if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+      echo "pass"
+    else
+      echo "skip ci"
+      exit 78
+    fi
+  else
+    echo "skip ci"
+    exit 78
+  fi
+}
+
+# ===============================================
 # Stage Test
 # ===============================================
 _STAGE_TEST() {
@@ -62,15 +93,6 @@ _STAGE_TEST() {
 # Stage Build
 # ===============================================
 _STAGE_BUILD() {
-  readonly local FORMATTED_BRANCH=${CURRENT_BRANCH#refs/heads/}
-  readonly local IS_MAJOR=$(echo "$COMMIT_LOG" | grep -c "$MAJOR_KEYWORD" )
-  readonly local IS_MINOR=$(echo "$COMMIT_LOG" | grep -c "$MINOR_KEYWORD" )
-  readonly local IS_PATCH=$(echo "$COMMIT_LOG" | grep -c "$PATCH_KEYWORD" )
-  readonly local IS_BUMP=$(echo "$COMMIT_LOG" | grep -c "$BUMP_KEYWORD" )
-  readonly local IS_MASTER=$(echo "$FORMATTED_BRANCH" | grep -c "main" )
-  readonly local IS_HOTFIX=$(echo "$FORMATTED_BRANCH" | grep -c "hotfix" )
-  readonly local IS_FEATURE=$(echo "$FORMATTED_BRANCH" | grep -c "feature" )
-
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
     _INSTALL_DEPENDENCY
     _COMPILE_ASSET
@@ -78,10 +100,8 @@ _STAGE_BUILD() {
 
   if [[ "$IS_MASTER" != 0 ]]; then
     _BUILD_MASTER
-  elif [[ "$IS_HOTFIX" != 0 ]]; then
-    _BUILD_HOTFIX
-  elif [[ "$IS_FEATURE" != 0 ]]; then
-    _BUILD_FEATURE
+  elif [ "$IS_HOTFIX" != 0 ] || [ "$IS_FEATURE" != 0 ] ; then
+    _BUILD_NON_MASTER
   fi
 }
 
@@ -92,8 +112,10 @@ _BUILD_MASTER() {
     node_modules/.bin/lerna version major --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
   elif [[ "$IS_MINOR" != 0 ]]; then
     node_modules/.bin/lerna version minor --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
-  elif [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+  elif [[ "$IS_PATCH" != 0 ]]; then
     node_modules/.bin/lerna version patch --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
+  else
+    node_modules/.bin/lerna version --yes --conventional-commits --conventional-graduate ${LERNA_ACTION}
   fi
 
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
@@ -101,24 +123,22 @@ _BUILD_MASTER() {
   fi
 }
 
-_BUILD_FEATURE() {
-  echo "_BUILD_FEATURE"
+_BUILD_NON_MASTER() {
+  echo "_BUILD_NON_MASTER"
 
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    node_modules/.bin/lerna version --yes prepatch --preid ${FORMATTED_BRANCH}
-    yarn run publish:ci
-  fi
+    node_modules/.bin/lerna version --conventional-commits --conventional-prerelease --yes --preid ${FORMATTED_BRANCH} --no-git-tag-version
 
-  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    yarn run publish:ci
-  fi
-}
+    if [ -z "$(git status --porcelain)" ]; then
+      echo "clean commit"
+    else
+      [ -f ./.git/hooks/prepare-commit-msg ] && mv ./.git/hooks/prepare-commit-msg ./.git/hooks/prepare-commit-msg-temporary
+      git commit -a -n -m 'chore(release): publish version'
+      git push origin $FORMATTED_BRANCH
+      [ -f ./.git/hooks/prepare-commit-msg-temporary ] && mv ./.git/hooks/prepare-commit-msg-temporary ./.git/hooks/prepare-commit-msg
+      git checkout .
+    fi
 
-_BUILD_HOTFIX() {
-  echo "_BUILD_HOTFIX"
-
-  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    node_modules/.bin/lerna version --yes --conventional-commits --conventional-prerelease
     yarn run publish:ci
   fi
 }
@@ -132,9 +152,7 @@ _INSTALL_DEPENDENCY() {
 _COMPILE_ASSET() {
   echo "_COMPILE_ASSET"
 
-  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] ; then
-    make compile
-  fi
+  make compile
 }
 
 _MAIN "$@"; exit

@@ -4,7 +4,6 @@ on:
   # When Release Pull Request is merged
   push:
     branches:
-      - main
       - feature-*
       - hotfix-*
   pull_request:
@@ -54,9 +53,25 @@ jobs:
         run: |
           bash etc/deployments/cd.sh
 
+  is-publish-apps:
+    if: "!contains(github.event.head_commit.message, 'chore(release)')"
+    needs: check-commit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Check Github Commit
+        env:
+          CI_STAGE_NAME: 'DOABLE_PUBLISH'
+          CURRENT_BRANCH: ${{ github.ref }}
+        run: |
+          bash etc/deployments/cd.sh
+
   publish-gpr:
     if: "!contains(github.event.head_commit.message, 'chore(release)')"
-    needs: do-linter
+    needs: [is-publish-apps, do-linter]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

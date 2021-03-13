@@ -1,7 +1,6 @@
 {
     "packages": [
-        "_base/*",
-        "apps"
+        "_base/*"
     ],
     "version": "independent",
     "useWorkspaces": true,
