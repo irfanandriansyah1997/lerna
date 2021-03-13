@@ -11,6 +11,14 @@ COMMIT_LOG=$(git log -1 --pretty=format:"%s")
 
 _MAIN() {
   echo "_MAIN"
+  readonly local FORMATTED_BRANCH=${CURRENT_BRANCH#refs/heads/}
+  readonly local IS_MAJOR=$(echo "$COMMIT_LOG" | grep -c "$MAJOR_KEYWORD" )
+  readonly local IS_MINOR=$(echo "$COMMIT_LOG" | grep -c "$MINOR_KEYWORD" )
+  readonly local IS_PATCH=$(echo "$COMMIT_LOG" | grep -c "$PATCH_KEYWORD" )
+  readonly local IS_BUMP=$(echo "$COMMIT_LOG" | grep -c "$BUMP_KEYWORD" )
+  readonly local IS_MASTER=$(echo "$FORMATTED_BRANCH" | grep -c "main" )
+  readonly local IS_HOTFIX=$(echo "$FORMATTED_BRANCH" | grep -c "hotfix" )
+  readonly local IS_FEATURE=$(echo "$FORMATTED_BRANCH" | grep -c "feature" )
 
   if [[ $CI_STAGE_NAME = "BUILD" ]]; then
     echo "STAGE: BUILD"
@@ -24,6 +32,10 @@ _MAIN() {
     echo "STAGE: CHECK_COMMIT"
 
     _STAGE_COMMIT
+  elif [[ $CI_STAGE_NAME = "DOABLE_PUBLISH" ]]; then
+    echo "STAGE: DOABLE_PUBLISH"
+
+    _STAGE_DOABLE_PUBLISH
   else
     echo "UNKNOWN STAGE. EXIT!"
     exit 1
@@ -48,6 +60,25 @@ _STAGE_COMMIT() {
 }
 
 # ===============================================
+# Stage Doable Publish
+# ===============================================
+_STAGE_DOABLE_PUBLISH() {
+  if [[ "$IS_MASTER" != 0 ]]; then
+    echo "pass"
+  elif [ "$IS_HOTFIX" != 0 ] || [ "$IS_FEATURE" != 0 ] ; then
+    if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
+      echo "pass"
+    else
+      echo "skip ci"
+      exit 78
+    fi
+  else
+    echo "skip ci"
+    exit 78
+  fi
+}
+
+# ===============================================
 # Stage Test
 # ===============================================
 _STAGE_TEST() {
@@ -62,15 +93,6 @@ _STAGE_TEST() {
 # Stage Build
 # ===============================================
 _STAGE_BUILD() {
-  readonly local FORMATTED_BRANCH=${CURRENT_BRANCH#refs/heads/}
-  readonly local IS_MAJOR=$(echo "$COMMIT_LOG" | grep -c "$MAJOR_KEYWORD" )
-  readonly local IS_MINOR=$(echo "$COMMIT_LOG" | grep -c "$MINOR_KEYWORD" )
-  readonly local IS_PATCH=$(echo "$COMMIT_LOG" | grep -c "$PATCH_KEYWORD" )
-  readonly local IS_BUMP=$(echo "$COMMIT_LOG" | grep -c "$BUMP_KEYWORD" )
-  readonly local IS_MASTER=$(echo "$FORMATTED_BRANCH" | grep -c "main" )
-  readonly local IS_HOTFIX=$(echo "$FORMATTED_BRANCH" | grep -c "hotfix" )
-  readonly local IS_FEATURE=$(echo "$FORMATTED_BRANCH" | grep -c "feature" )
-
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
     _INSTALL_DEPENDENCY
     _COMPILE_ASSET
@@ -130,9 +152,7 @@ _INSTALL_DEPENDENCY() {
 _COMPILE_ASSET() {
   echo "_COMPILE_ASSET"
 
-  if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    make compile
-  fi
+  make compile
 }
 
 _MAIN "$@"; exit
