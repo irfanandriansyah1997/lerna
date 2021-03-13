@@ -71,7 +71,7 @@ jobs:
 
   publish-gpr:
     if: "!contains(github.event.head_commit.message, 'chore(release)')"
-    needs: do-linter
+    needs: [is-publish-apps, do-linter]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
