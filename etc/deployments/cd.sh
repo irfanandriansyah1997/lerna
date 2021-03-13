@@ -6,7 +6,7 @@ MAJOR_KEYWORD="(major)"
 MINOR_KEYWORD="(minor)"
 PATCH_KEYWORD="(patch)"
 BUMP_KEYWORD="(bump)"
-# COMMIT_LOG=$(git log -1 --pretty=format:"%s")
+COMMIT_LOG=$(git log -1 --pretty=format:"%s")
 
 
 _MAIN() {
@@ -106,10 +106,13 @@ _BUILD_NON_MASTER() {
     node_modules/.bin/lerna version --conventional-commits --conventional-prerelease --yes --preid ${FORMATTED_BRANCH} --no-git-tag-version
 
     if [ -z "$(git status --porcelain)" ]; then
-      echo "clean"
+      echo "clean commit"
     else
+      [ -f ./.git/hooks/prepare-commit-msg ] && mv ./.git/hooks/prepare-commit-msg ./.git/hooks/prepare-commit-msg-temporary
       git commit -a -n -m 'chore(release): publish version'
       git push origin $FORMATTED_BRANCH
+      [ -f ./.git/hooks/prepare-commit-msg-temporary ] && mv ./.git/hooks/prepare-commit-msg-temporary ./.git/hooks/prepare-commit-msg
+      git checkout .
     fi
 
     yarn run publish:ci
