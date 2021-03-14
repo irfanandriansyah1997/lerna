@@ -124,7 +124,7 @@ _BUILD_NON_MASTER() {
   echo "_BUILD_NON_MASTER"
 
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    node_modules/.bin/lerna version --conventional-commits --conventional-prerelease --yes --preid ${FORMATTED_BRANCH} --no-git-tag-version
+    node_modules/.bin/lerna version --conventional-commits --conventional-prerelease --yes --preid ${FORMATTED_BRANCH}
 
     if [ -z "$(git status --porcelain)" ]; then
       echo "clean commit"
