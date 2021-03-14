@@ -16,7 +16,7 @@
   "scripts": {
     "test": "jest -w 2 --verbose src --cache",
     "test:watch": "jest --watch --coverage=true",
-    "compile": "ASSET_PATH='_base/helper/lib' CONFIG_PATH='_base/helper' bash ../../etc/build-asset/build.sh",
+    "compile": "ASSET_PATH='_base/helper' CONFIG_PATH='_base/helper' bash ../../etc/build-asset/build.sh",
     "prepublishOnly": "cp -r ./lib/* ."
   },
   "bugs": {

@@ -8,7 +8,8 @@ module.exports = {
     '!lib/**/*.js',
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.mock.{js,jsx,ts,tsx}',
-    '!src/**/*.constant.{js,jsx,ts,tsx}'
+    '!src/**/*.constant.{js,jsx,ts,tsx}',
+    '!.rollup.cache'
   ],
   coverageDirectory: '.jest_coverage/',
   coverageReporters: ['json', 'lcov', 'text', 'clover'],
