@@ -6,12 +6,14 @@ MAJOR_KEYWORD="(major)"
 MINOR_KEYWORD="(minor)"
 PATCH_KEYWORD="(patch)"
 BUMP_KEYWORD="(bump)"
+NO_RELEASE_KEYWORD="(no-release)"
 COMMIT_LOG=$(git log -1 --pretty=format:"%s")
 
 
 _MAIN() {
   echo "_MAIN"
   readonly local FORMATTED_BRANCH=${CURRENT_BRANCH#refs/heads/}
+  readonly local NO_RELEASE=$(echo "$COMMIT_LOG" | grep -c "$NO_RELEASE_KEYWORD" )
   readonly local IS_MAJOR=$(echo "$COMMIT_LOG" | grep -c "$MAJOR_KEYWORD" )
   readonly local IS_MINOR=$(echo "$COMMIT_LOG" | grep -c "$MINOR_KEYWORD" )
   readonly local IS_PATCH=$(echo "$COMMIT_LOG" | grep -c "$PATCH_KEYWORD" )
@@ -68,13 +70,14 @@ _STAGE_DOABLE_PUBLISH() {
   elif [ "$IS_HOTFIX" != 0 ] || [ "$IS_FEATURE" != 0 ] ; then
     if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
       echo "pass"
+      echo "CI_SKIP_PUBLISH=false" >> $GITHUB_ENV
     else
       echo "skip ci"
-      exit 78
+      echo "CI_SKIP_PUBLISH=true" >> $GITHUB_ENV
     fi
   else
     echo "skip ci"
-    exit 78
+    echo "CI_SKIP_PUBLISH=true" >> $GITHUB_ENV
   fi
 }
 
@@ -123,7 +126,11 @@ _BUILD_NON_MASTER() {
   echo "_BUILD_NON_MASTER"
 
   if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
-    node_modules/.bin/lerna version --conventional-commits --conventional-prerelease --yes --preid ${FORMATTED_BRANCH} --no-git-tag-version
+    if [[ "$NO_RELEASE" != 0 ]]; then
+      node_modules/.bin/lerna version --conventional-commits --conventional-prerelease --yes --preid ${FORMATTED_BRANCH} --no-git-tag-version
+    else
+      node_modules/.bin/lerna version --conventional-commits --conventional-prerelease --yes --preid ${FORMATTED_BRANCH}
+    fi
 
     if [ -z "$(git status --porcelain)" ]; then
       echo "clean commit"

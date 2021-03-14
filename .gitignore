@@ -115,7 +115,9 @@ _base/*/**.js
 _base/*/*.ts
 _base/*/**.ts
 _base/*/.rollup.cache
+_base/*/.jest_coverage
 
 # Library Resource
 !_base/*/src/*.ts
+!_base/*/jest.config.js
 !_base/*/src/**/*.ts

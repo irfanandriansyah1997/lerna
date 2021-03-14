@@ -1,11 +1,14 @@
-# `helper`
+# `helper package`
 
 > TODO: description
 
 ## Usage
 
-```
-const helper = require('helper');
+```ts
+const { verifiedIsNotEmpty } = require('helper');
 
-// TODO: DEMONSTRATE API
+verifiedIsNotEmpty(undefined); // to be false
+verifiedIsNotEmpty(null); // to be false
+verifiedIsNotEmpty(1); // to be true
+verifiedIsNotEmpty('testing'); // to be true
 ```

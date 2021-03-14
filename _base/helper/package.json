@@ -1,6 +1,6 @@
 {
   "name": "@irfanandriansyah1997/helper",
-  "version": "0.1.0",
+  "version": "0.2.0-feature-helper.3",
   "description": "99 basic helper",
   "keywords": [],
   "author": "irfan andriansyah <irfanandriansyah10@gmail.com>",
@@ -14,30 +14,42 @@
     "url": "git+https://github.com/irfanandriansyah1997/lerna.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\"",
-    "compile": "rimraf build && tsc && rollup -c etc/rollup/rollup.config.js",
-    "postcompile": "mv lib/src/* lib && rm -rf lib/src",
+    "test": "jest -w 2 --verbose src --cache",
+    "test:watch": "jest --watch --coverage=true",
+    "compile": "ASSET_PATH='_base/helper' CONFIG_PATH='_base/helper' bash ../../etc/build-asset/build.sh",
     "prepublishOnly": "cp -r ./lib/* ."
   },
   "bugs": {
     "url": "https://github.com/irfanandriansyah1997/lerna/issues"
   },
   "dependencies": {
-    "react": "^17.0.1"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.13.5",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-react": "^7.12.13",
     "@open-wc/building-rollup": "^1.9.4",
     "@rollup/plugin-typescript": "^8.2.0",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@types/enzyme": "^3.10.8",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^26.0.20",
     "@types/react": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
+    "babel-jest": "^26.6.3",
     "deepmerge": "^4.2.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-to-json": "^3.6.1",
     "eslint": "^7.21.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.1.0",
     "eslint-import-resolver-typescript": "^2.4.0",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
@@ -48,10 +60,14 @@
     "eslint-plugin-sort-exports": "^0.3.2",
     "eslint-plugin-sort-keys-fix": "^1.1.1",
     "eslint-plugin-typescript-sort-keys": "^1.5.0",
+    "jest": "^26.6.3",
+    "jest-canvas-mock": "^2.3.1",
     "prettier": "^2.2.1",
+    "react-test-renderer": "^17.0.1",
     "rollup": "^2.41.1",
     "rollup-plugin-multi-input": "^1.2.0",
     "rollup-plugin-terser": "^7.0.2",
+    "ts-jest": "^26.5.3",
     "typescript": "^4.2.3"
   }
 }

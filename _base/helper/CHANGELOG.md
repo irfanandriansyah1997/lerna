@@ -3,6 +3,85 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0-feature-helper.3](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/helper@0.2.0-feature-helper.2...@irfanandriansyah1997/helper@0.2.0-feature-helper.3) (2021-03-14)
+
+
+### Features
+
+* **helper:** create helper for auto binding method ([d2ba37b](https://github.com/irfanandriansyah1997/lerna/commit/d2ba37b657a853c8e3dbb75bdba04049863e5744))
+
+
+
+
+
+# [0.2.0-feature-helper.2](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/helper@0.1.0...@irfanandriansyah1997/helper@0.2.0-feature-helper.2) (2021-03-14)
+
+
+### Bug Fixes
+
+* **asset:** add event to remove .rollup.cache every compile (bump) ([cf87340](https://github.com/irfanandriansyah1997/lerna/commit/cf87340d5dfbbad0f20d4395f475993d16316778))
+
+
+### Features
+
+* **asset:** create sh files for generate asset packages ([fde3560](https://github.com/irfanandriansyah1997/lerna/commit/fde3560827e1cba03e7ac719eef91f2141a274c1))
+* **helper:** complete reusable helper from core web repository ([3e74b16](https://github.com/irfanandriansyah1997/lerna/commit/3e74b16346aaaf37ce8e460bf61f049dcaa120cc))
+* **helper:** complete unit test ([f0e855b](https://github.com/irfanandriansyah1997/lerna/commit/f0e855b36d65dbd782a371aa49947027cf71ebe5))
+* **test:** install dependencies for unit test ([bd773c3](https://github.com/irfanandriansyah1997/lerna/commit/bd773c3a7ca4e97bc816c669a16c97d6aab96548))
+* **test:** setup jest on helper package ([a495216](https://github.com/irfanandriansyah1997/lerna/commit/a4952169c722aec780e21f8571af1753c225d28d))
+
+
+
+
+
+# [0.2.0-feature-helper.1](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/helper@0.1.0...@irfanandriansyah1997/helper@0.2.0-feature-helper.1) (2021-03-14)
+
+
+### Bug Fixes
+
+* **asset:** add event to remove .rollup.cache every compile (bump) ([cf87340](https://github.com/irfanandriansyah1997/lerna/commit/cf87340d5dfbbad0f20d4395f475993d16316778))
+
+
+### Features
+
+* **asset:** create sh files for generate asset packages ([fde3560](https://github.com/irfanandriansyah1997/lerna/commit/fde3560827e1cba03e7ac719eef91f2141a274c1))
+* **helper:** complete reusable helper from core web repository ([3e74b16](https://github.com/irfanandriansyah1997/lerna/commit/3e74b16346aaaf37ce8e460bf61f049dcaa120cc))
+* **helper:** complete unit test ([f0e855b](https://github.com/irfanandriansyah1997/lerna/commit/f0e855b36d65dbd782a371aa49947027cf71ebe5))
+* **test:** install dependencies for unit test ([bd773c3](https://github.com/irfanandriansyah1997/lerna/commit/bd773c3a7ca4e97bc816c669a16c97d6aab96548))
+* **test:** setup jest on helper package ([a495216](https://github.com/irfanandriansyah1997/lerna/commit/a4952169c722aec780e21f8571af1753c225d28d))
+
+
+
+
+
+# [0.2.0-feature-helper.0](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/helper@0.1.0...@irfanandriansyah1997/helper@0.2.0-feature-helper.0) (2021-03-14)
+
+
+### Bug Fixes
+
+* **asset:** add event to remove .rollup.cache every compile (bump) ([cf87340](https://github.com/irfanandriansyah1997/lerna/commit/cf87340d5dfbbad0f20d4395f475993d16316778))
+
+
+### Features
+
+* **asset:** create sh files for generate asset packages ([fde3560](https://github.com/irfanandriansyah1997/lerna/commit/fde3560827e1cba03e7ac719eef91f2141a274c1))
+* **helper:** complete reusable helper from core web repository ([3e74b16](https://github.com/irfanandriansyah1997/lerna/commit/3e74b16346aaaf37ce8e460bf61f049dcaa120cc))
+* **helper:** complete unit test ([f0e855b](https://github.com/irfanandriansyah1997/lerna/commit/f0e855b36d65dbd782a371aa49947027cf71ebe5))
+* **test:** install dependencies for unit test ([bd773c3](https://github.com/irfanandriansyah1997/lerna/commit/bd773c3a7ca4e97bc816c669a16c97d6aab96548))
+* **test:** setup jest on helper package ([a495216](https://github.com/irfanandriansyah1997/lerna/commit/a4952169c722aec780e21f8571af1753c225d28d))
+
+
+
+
+
+## [0.1.1-feature-helper.0](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/helper@0.1.0...@irfanandriansyah1997/helper@0.1.1-feature-helper.0) (2021-03-14)
+
+**Note:** Version bump only for package @irfanandriansyah1997/helper
+
+
+
+
+
 # [0.1.0](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/helper@0.1.0-feature-versioning.0...@irfanandriansyah1997/helper@0.1.0) (2021-03-12)
 
 **Note:** Version bump only for package @irfanandriansyah1997/helper
