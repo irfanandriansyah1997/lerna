@@ -67,6 +67,7 @@ _STAGE_COMMIT() {
 _STAGE_DOABLE_PUBLISH() {
   if [[ "$IS_MASTER" != 0 ]]; then
     echo "pass"
+    echo "CI_SKIP_PUBLISH=false" >> $GITHUB_ENV
   elif [ "$IS_HOTFIX" != 0 ] || [ "$IS_FEATURE" != 0 ] ; then
     if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
       echo "pass"
