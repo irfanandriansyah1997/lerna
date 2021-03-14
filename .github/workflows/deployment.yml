@@ -51,7 +51,7 @@ jobs:
 
   publish-gpr:
     if: "!contains(github.event.head_commit.message, 'chore(release)')"
-    # needs: do-linter
+    needs: do-linter
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -86,19 +86,19 @@ jobs:
         run: |
           npm whoami --registry https://npm.pkg.github.com/
 
-      # - name: Config git user
-      #   if: steps.deploy.outcome == 'success'
-      #   run: |
-      #     git config --global user.name "${{ github.actor }}"
-      #     git config --global user.email "irfanandriansyah10@gmail.com"
+      - name: Config git user
+        if: env.CI_SKIP_PUBLISH == 'false'
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "irfanandriansyah10@gmail.com"
 
-      # - name: Bump versions and publish packages
-      #   if: steps.deploy.outcome == 'success'
-      #   env:
-      #     CI_STAGE_NAME: 'BUILD'
-      #     CURRENT_BRANCH: ${{ github.ref }}
-      #     LERNA_ACTION: '--create-release github'
-      #     GH_TOKEN: ${{ secrets.TOKEN_BUILD }}
-      #     NODE_AUTH_TOKEN: ${{ secrets.TOKEN_BUILD }}
-      #   run: |
-      #     bash etc/deployments/cd.sh
+      - name: Bump versions and publish packages
+        if: env.CI_SKIP_PUBLISH == 'false'
+        env:
+          CI_STAGE_NAME: 'BUILD'
+          CURRENT_BRANCH: ${{ github.ref }}
+          LERNA_ACTION: '--create-release github'
+          GH_TOKEN: ${{ secrets.TOKEN_BUILD }}
+          NODE_AUTH_TOKEN: ${{ secrets.TOKEN_BUILD }}
+        run: |
+          bash etc/deployments/cd.sh
