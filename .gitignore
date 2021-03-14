@@ -118,4 +118,5 @@ _base/*/.rollup.cache
 
 # Library Resource
 !_base/*/src/*.ts
+!_base/*/jest.config.js
 !_base/*/src/**/*.ts
