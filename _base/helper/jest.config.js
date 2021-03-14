@@ -6,21 +6,9 @@ module.exports = {
     '!src/*.scss',
     '!src/*.less',
     '!lib/**/*.js',
-    '!**/__mocks__/*.{js,ts,jsx,tsx}',
     'src/**/*.{js,jsx,ts,tsx}',
-    '!.storybook/*.{js,jsx,ts,tsx}',
     '!src/**/*.mock.{js,jsx,ts,tsx}',
-    '!.storybook/**/*.{js,jsx,ts,tsx}',
-    '!documentation/*.{js,ts,jsx,tsx}',
-    '!src/**/*.stories.{js,jsx,ts,tsx}',
-    '!src/**/*.constant.{js,jsx,ts,tsx}',
-    '!documentation/**/*.{js,ts,jsx,tsx}',
-    '!src/documentation/*.{js,jsx,ts,tsx}',
-    '!src/**/documentation-*.{js,jsx,ts,tsx}',
-    '!src/**/documentation.*.{js,jsx,ts,tsx}',
-    '!src/**/*documentation*.{js,jsx,ts,tsx}',
-    '!src/**/*.documentation.{js,jsx,ts,tsx}',
-    '!src/documentation/**/*.{js,ts,jsx,tsx}'
+    '!src/**/*.constant.{js,jsx,ts,tsx}'
   ],
   coverageDirectory: '.jest_coverage/',
   coverageReporters: ['json', 'lcov', 'text', 'clover'],
@@ -34,7 +22,7 @@ module.exports = {
     '^.+\\.(css|less|scss)$': 'babel-jest'
   },
   setupFilesAfterEnv: [
-    '<rootDir>/etc/jest/enzyme.config.ts',
+    './etc/jest/enzyme.config.ts',
     '@testing-library/jest-dom/extend-expect',
     'jest-canvas-mock'
   ],

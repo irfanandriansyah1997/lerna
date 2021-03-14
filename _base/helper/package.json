@@ -14,7 +14,8 @@
     "url": "git+https://github.com/irfanandriansyah1997/lerna.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\"",
+    "test": "jest -w 2 --verbose src --cache",
+    "test:watch": "jest --watch --coverage=true",
     "compile": "rimraf build && tsc && rollup -c etc/rollup/rollup.config.js",
     "postcompile": "mv lib/src/* lib && rm -rf lib/src",
     "prepublishOnly": "cp -r ./lib/* ."
@@ -23,7 +24,8 @@
     "url": "https://github.com/irfanandriansyah1997/lerna/issues"
   },
   "dependencies": {
-    "react": "^17.0.1"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.13.5",
@@ -60,6 +62,7 @@
     "eslint-plugin-sort-keys-fix": "^1.1.1",
     "eslint-plugin-typescript-sort-keys": "^1.5.0",
     "jest": "^26.6.3",
+    "jest-canvas-mock": "^2.3.1",
     "prettier": "^2.2.1",
     "react-test-renderer": "^17.0.1",
     "rollup": "^2.41.1",
