@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0-feature-helper.3](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/helper@0.2.0-feature-helper.2...@irfanandriansyah1997/helper@0.2.0-feature-helper.3) (2021-03-14)
+
+
+### Features
+
+* **helper:** create helper for auto binding method ([d2ba37b](https://github.com/irfanandriansyah1997/lerna/commit/d2ba37b657a853c8e3dbb75bdba04049863e5744))
+
+
+
+
+
 # [0.2.0-feature-helper.2](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/helper@0.1.0...@irfanandriansyah1997/helper@0.2.0-feature-helper.2) (2021-03-14)
 
 
