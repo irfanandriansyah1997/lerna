@@ -22,7 +22,7 @@ module.exports = {
     '^.+\\.(css|less|scss)$': 'babel-jest'
   },
   setupFilesAfterEnv: [
-    './etc/jest/enzyme.config.ts',
+    '../../etc/jest/enzyme.config.ts',
     '@testing-library/jest-dom/extend-expect',
     'jest-canvas-mock'
   ],
