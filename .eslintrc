@@ -146,6 +146,38 @@
             }
         ]
     },
+    "overrides":[
+        {
+            "files":"**/*.+(ts|tsx)",
+            "plugins":[
+                "typescript-sort-keys"
+            ],
+            "rules":{
+                "@typescript-eslint/explicit-function-return-type":"off",
+                "@typescript-eslint/explicit-module-boundary-types":"off",
+                "no-use-before-define":[
+                    0
+                ],
+                "@typescript-eslint/no-use-before-define":[
+                    1
+                ],
+                "@typescript-eslint/no-explicit-any":"off",
+                "@typescript-eslint/no-var-requires":"off",
+                "@typescript-eslint/quotes":[
+                    2,
+                    "backtick",
+                    {
+                        "avoidEscape":true
+                    }
+                ],
+                // Custom Rules
+                "no-unused-vars": "off",
+                "@typescript-eslint/no-unused-vars": ["error"],
+                "typescript-sort-keys/interface": "error",
+                "typescript-sort-keys/string-enum": "error"
+            }
+        }
+    ],
     "settings":{
         "import/resolver":{
             "typescript":{
