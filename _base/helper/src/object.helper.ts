@@ -4,6 +4,8 @@ import { verifiedIsNotEmpty } from './validation.helper';
  * Exclude Destructure Object
  * @param {Record<string, unknown> | undefined} obj - object for destructure
  * @return {Record<string, unknown>}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export function excludeDestructureObject<T = Record<string, unknown>>(
   obj: Record<string, unknown>,
@@ -32,6 +34,8 @@ export function excludeDestructureObject<T = Record<string, unknown>>(
  * Merging Array To Map
  * @param {Record<string, unknown>[]} obj - array obj for destructure
  * @return {Record<string, unknown>}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const mergingArrayMapToMap = (
   obj: Record<string, unknown>[]
@@ -48,6 +52,8 @@ export const mergingArrayMapToMap = (
  * Object To URL Param
  * @param {Record<string, unknown>[]} obj - array obj for destructure
  * @return {string}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const objectToURLParam = (obj: Record<string, unknown>): string =>
   Object.keys(obj)
@@ -83,6 +89,8 @@ export const objectToURLParam = (obj: Record<string, unknown>): string =>
  * Remove Object Key If Value Empty
  * @param {Record<string, unknown>[]} obj - array obj for destructure
  * @return {Record<string, unknown>}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const removeObjectKeyIfEmpty = (
   obj: Record<string, unknown>

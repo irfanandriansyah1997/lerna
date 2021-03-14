@@ -4,6 +4,8 @@
  * @param {number} digits - digit after comma
  * @param {'id' | 'en'} language - language option
  * @return {string}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const formatNumberCurrencyToString = (
   number: number,
@@ -36,6 +38,8 @@ export const formatNumberCurrencyToString = (
  * minify tag html
  * @param {string} html - source html string
  * @return {string}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const minifyHTML = (html: string): string =>
   html
@@ -47,6 +51,8 @@ export const minifyHTML = (html: string): string =>
  * Object To String
  * @param {ComponentClassnameDefaultInterface} obj - object classname
  * @return {string}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const objToString = (obj: Record<string, unknown>): string => {
   try {
@@ -63,6 +69,8 @@ export const objToString = (obj: Record<string, unknown>): string => {
  * Parsing Normal Text To Kebab Case
  * @param {string} text - text
  * @return {string}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const parsingNormalTextToKebabCase = (text: string): string =>
   text
@@ -77,6 +85,8 @@ export const parsingNormalTextToKebabCase = (text: string): string =>
  * @param {number} price  - price value
  * @param {',' | '.'} separator - separator number
  * @return {string}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const parsingNumberToCurrencyString = (
   prefix: string,
@@ -90,6 +100,9 @@ export const parsingNumberToCurrencyString = (
 /**
  * Remove non-Alphanumeric Character
  * @param {string} text
+ * @returns {string}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const removeNonAlphanumericCharacter = (text: string): string => {
   const isAlphabetical = text.match(/\w/g);
@@ -104,6 +117,8 @@ export const removeNonAlphanumericCharacter = (text: string): string => {
  * Uppercase Each Word
  * @param {string} text - text to uppercase
  * @return {string}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const uppercaseEachWord = (text: string): string => {
   const splitStr = text.toLowerCase().split(` `);
@@ -121,6 +136,8 @@ export const uppercaseEachWord = (text: string): string => {
  * Validate Number And Parsed To Integer
  * @param {unknow} number - parameter for parsing this method
  * @return {number}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const validateNumberAndParsedToInteger = (number: unknown): number => {
   if (

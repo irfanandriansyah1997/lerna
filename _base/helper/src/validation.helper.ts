@@ -6,6 +6,8 @@ import { validateNumberAndParsedToInteger } from './string.helper';
  * Check is number
  * @param {unknown} param - parameter to check
  * @return {boolean}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const isNumber = (param: unknown): boolean =>
   typeof param === `number` ||
@@ -16,6 +18,8 @@ export const isNumber = (param: unknown): boolean =>
  * Check is number
  * @param {unknown} param - parameter to check
  * @return {boolean}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const isString = (param: unknown): boolean => typeof param === `string`;
 
@@ -23,6 +27,9 @@ export const isString = (param: unknown): boolean => typeof param === `string`;
  * Verified Is Not Empty
  * @param {unknown} param - parameter to check
  * Validator checking parameter input is not undefined / null
+ * @returns {boolean}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const verifiedIsNotEmpty = (param: unknown): boolean =>
   [undefined, null, ``].filter((item: unknown) => param === item).length === 0;
@@ -31,6 +38,9 @@ export const verifiedIsNotEmpty = (param: unknown): boolean =>
  * Verified Is Not Null
  * @param {unknown} param - parameter to check
  * Validator checking parameter input is not undefined / null
+ * @returns {boolean}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 const verifiedIsNotNull = (param: unknown): boolean =>
   [undefined, null].filter((item: unknown) => param === item).length === 0;
@@ -39,6 +49,9 @@ const verifiedIsNotNull = (param: unknown): boolean =>
  * Bulk Verified Is Not Empty
  * @param {unknown[]} param - parameter to check
  * Validator checking parameter input is not undefined / null
+ * @returns {boolean}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const bulkVerifiedIsNotEmpty = (param: unknown[]): boolean =>
   param.filter((item) => !verifiedIsNotEmpty(item)).length === 0;
@@ -47,6 +60,9 @@ export const bulkVerifiedIsNotEmpty = (param: unknown[]): boolean =>
  * Bulk Verified Is Not Null
  * @param {unknown[]} param - parameter to check
  * Validator checking parameter input is not undefined / null
+ * @returns {boolean}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const bulkVerifiedIsNotNull = (param: unknown[]): boolean =>
   param.filter((item) => !verifiedIsNotNull(item)).length === 0;
@@ -55,6 +71,9 @@ export const bulkVerifiedIsNotNull = (param: unknown[]): boolean =>
  * Verified Is Not False
  * @param {boolean | undefined | null} param - parameter to check
  * Validator checking parameter input is true
+ * @returns {boolean}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const verifiedIsNotFalse = (
   param: boolean | undefined | null
@@ -74,6 +93,8 @@ export const verifiedIsNotFalse = (
  * @param {DefaultDynamicObject} obj
  * @param {string} key
  * @return {boolean}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const verifiedKeyIsExist = (
   obj: Record<string, unknown>,
@@ -91,6 +112,8 @@ export const verifiedKeyIsExist = (
  * @param {Record<string, unknown>} obj - obj parameter
  * @param {string[]} key - key object
  * @returns {boolean}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const bulkVerifiedKeyIsExist = (
   obj: Record<string, unknown>,
@@ -109,6 +132,8 @@ export const bulkVerifiedKeyIsExist = (
  * @param {number} min - parameter number 2
  * @param {boolean} isEqual - is equal to param 2 ?
  * @return {boolean}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const verifiedGreatherThan = (
   max: number,
@@ -136,6 +161,8 @@ export const verifiedGreatherThan = (
  * @param {string} key - object key
  * @param {number} defaultValue - default value is not exist
  * @return {boolean}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const verifiedIsExistAndIsNumber = (
   obj: Record<string, unknown>,
@@ -155,6 +182,8 @@ export const verifiedIsExistAndIsNumber = (
  * @param {string} key - object key
  * @param {number} defaultValue - default value is not exist
  * @return {boolean}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const verifiedIsExistAndIsString = (
   obj: Record<string, unknown>,
@@ -174,6 +203,8 @@ export const verifiedIsExistAndIsString = (
  * @param {string} key - object key
  * @param {any[]} defaultValue - default value is not exist
  * @return {any[]}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const verifiedIsExistAndIsArray = (
   obj: Record<string, unknown>,
@@ -193,6 +224,8 @@ export const verifiedIsExistAndIsArray = (
  * @param {string} key - object key
  * @param {any[]} defaultValue - default value is not exist
  * @return {any[]}
+ * @author Irfan Andriansyah <irfan@99.co>
+ * @since 2021.03.14
  */
 export const verifiedIsExistAndIsRangeInput = (
   obj: Record<string, any>,
