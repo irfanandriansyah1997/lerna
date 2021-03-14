@@ -68,13 +68,14 @@ _STAGE_DOABLE_PUBLISH() {
   elif [ "$IS_HOTFIX" != 0 ] || [ "$IS_FEATURE" != 0 ] ; then
     if [ "$IS_MAJOR" != 0 ] || [ "$IS_MINOR" != 0 ] || [ "$IS_PATCH" != 0 ] || [ "$IS_BUMP" != 0 ] ; then
       echo "pass"
+      echo "CI_SKIP_PUBLISH=false" >> $GITHUB_ENV
     else
       echo "skip ci"
-      exit 78
+      echo "CI_SKIP_PUBLISH=true" >> $GITHUB_ENV
     fi
   else
     echo "skip ci"
-    exit 78
+    echo "CI_SKIP_PUBLISH=true" >> $GITHUB_ENV
   fi
 }
 
