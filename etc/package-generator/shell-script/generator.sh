@@ -19,6 +19,7 @@ _CREATE_PACKAGE() {
   rm ${BASE_FOLDER}/src/${FOLDER_NAME}.js
   rm -rf ${BASE_FOLDER}/__tests__
   cp ${SECTION_FOLDER}/package-config/template/index.ts ${BASE_FOLDER}/src/
+  cp -r ${SECTION_FOLDER}/package-config/template/test ${BASE_FOLDER}/src/
 
   _INSTALL_DEPENDENCIES
 }

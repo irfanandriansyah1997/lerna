@@ -1,6 +1,6 @@
 # `testing`
 
-> sample testing apps
+> sample testing package
 
 ## Usage
 
