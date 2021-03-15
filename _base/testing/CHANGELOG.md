@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/irfanandriansyah1997/lerna/compare/@irfanandriansyah1997/testing@1.1.0-feature-cli.0...@irfanandriansyah1997/testing@1.1.0) (2021-03-15)
+
+**Note:** Version bump only for package @irfanandriansyah1997/testing
+
+
+
+
+
 # 1.1.0-feature-cli.0 (2021-03-15)
 
 
