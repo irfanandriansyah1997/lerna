@@ -1,7 +1,7 @@
 {
   "name": "@irfanandriansyah1997/testing",
   "version": "1.0.0",
-  "description": "testing",
+  "description": "sample testing apps",
   "keywords": [],
   "author": "irfan andriansyah <irfanandriansyah10@gmail.com>",
   "homepage": "https://github.com/irfanandriansyah1997/lerna/tree/main/_base/testing#readme",
@@ -13,7 +13,7 @@
   "scripts": {
     "test": "jest -w 2 --verbose src --cache",
     "test:watch": "jest --watch --coverage=true",
-    "compile": "ASSET_PATH='_base/helper' CONFIG_PATH='_base/helper' bash ../../etc/build-asset/build.sh",
+    "compile": "ASSET_PATH='_base/testing' CONFIG_PATH='_base/testing' bash ../../etc/build-asset/build.sh",
     "prepublishOnly": "cp -r ./lib/* ."
   },
   "bugs": {

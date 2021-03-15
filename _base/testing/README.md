@@ -1,6 +1,6 @@
 # `testing`
 
-> testing
+> sample testing apps
 
 ## Usage
 
