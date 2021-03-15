@@ -1,0 +1,1 @@
+echo "generator apps"

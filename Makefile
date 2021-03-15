@@ -18,3 +18,9 @@ sample-code-feature:
 
 sample-code-hotfix:
 	make -f Makefile-test sample-code-hotfix
+
+###########################################################################
+## Package CLI
+###########################################################################
+create-package:
+	@node_modules/.bin/ts-node -T -r tsconfig-paths/register --project ./tsconfig-cli.json etc/package-generator/index.ts
