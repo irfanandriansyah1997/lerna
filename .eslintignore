@@ -1,4 +1,5 @@
-etc
+etc/jest
+etc/package-generator/section/build-config/template/rollup.config.js
 _base/*/etc
 _base/*/node_modules
 _base/*/lib
