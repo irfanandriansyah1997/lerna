@@ -38,24 +38,19 @@ export class PackageBuilder {
     const paramShell = [
       `PACKAGE_NAME="${packageName}"`,
       `FOLDER_NAME="${folderName}"`,
-      description ? `DESCRIPTION="${description}"` : undefined
+      description !== `` ? `DESCRIPTION="${description}"` : undefined
     ]
       .filter((item) => item !== undefined)
       .join(` `);
-
-    exec(
-      `${paramShell} sh etc/package-generator/shell-script/generator.sh`,
-      (error, stdout, stderr) => {
-        if (error) {
-          throw error;
-        } else if (stderr) {
-          throw new Error(stderr);
-        }
-
-        // eslint-disable-next-line no-console
-        console.log(`stdout: ${stdout}`);
-      }
+    const event = exec(
+      `${paramShell} sh etc/package-generator/shell-script/generator.sh`
     );
+
+    if (event.stdout)
+      event.stdout.on(`data`, (data) => {
+        // eslint-disable-next-line no-console
+        console.log(data.toString());
+      });
   }
 
   /**
@@ -65,12 +60,6 @@ export class PackageBuilder {
   execute(): void {
     const { execShellScript, generateHeading } = this;
     generateHeading();
-
-    execShellScript({
-      description: `Sample Description`,
-      folderName: `sample-helper`,
-      packageName: `@irfanandriansyah1997/sample`
-    });
 
     inquirer
       .prompt(this.promptOption)

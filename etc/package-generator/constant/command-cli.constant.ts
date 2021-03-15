@@ -17,7 +17,7 @@ export const BASIC_COMMAND: QuestionCollection[] = [
   },
   {
     message: `Description Package :`,
-    name: `name`,
+    name: `description`,
     type: `input`
   }
 ];

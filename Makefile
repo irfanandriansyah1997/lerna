@@ -11,6 +11,7 @@ default:
 ###########################################################################
 compile:
 	node_modules/.bin/lerna run compile --scope="@irfanandriansyah1997/helper"
+	node_modules/.bin/lerna run compile --scope="@irfanandriansyah1997/testing"
 
 sample-code-feature:
 	LERNA_ACTION="--skip-git --no-changelog" CURRENT_BRANCH="refs/heads/feature-versioning" CI_STAGE_NAME="BUILD" COMMIT_FILTER="ci(sh)" COMMIT_LOG="merge(main -> release) (patch)" sh etc/deployments/cd.sh
